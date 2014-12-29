@@ -20,7 +20,7 @@ apply plugin: 'me.champeau.jbake'
 apply plugin: 'org.ajoberstar.github-pages'
 
 githubPages {
-  repoUri = 'https://github.com/willis7/willis7.github.io.git'
+  repoUri = 'git@github.com:willis7/blog.git'
   pages {
     from(file('build/jbake')) {
       into '.'

@@ -1,0 +1,35 @@
+= Debugging Grails tests with Intellij
+Sion Williams
+2014-12-29
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, intellij, grails, debugging
+:idprefix:
+
+I was having some real headaches with debugging my unit tests today. With the introduction of forked execution came the breakage of Intellij debugging.
+
+There are some rather long winded ways of applying remote debuggers, and Ted does a great job of breaking the problem
+down and http://naleid.com/blog/2014/11/10/debugging-grails-forked-mode[offering a solution]. However, in my rather tiny
+Grails application I was happy to sacrifice the http://grails.io/post/43484836985/road-to-grails-2-3-forked-execution[benefits of forked execution] - at least for my tests.
+
+So, in BuildConfig.groovy I changed the following block:
+
+[source,groovy,numbered]
+grails.project.fork = [
+    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]
+
+to:
+[source,groovy,numbered]
+grails.project.fork = [
+    test: false,
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]
+
+
+This change tells Grails that when we run the test configuration it shouldn't run in forked mode - this is anything we would run using the 'test-app' Grails command.
