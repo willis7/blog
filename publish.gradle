@@ -1,0 +1,19 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'org.ajoberstar:gradle-git:0.12.0'
+  }
+}
+
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+  repoUri = 'https://github.com/willis7/willis7.github.io.git'
+  pages {
+    from(file('build/jbake')) {
+      into '.'
+    }
+  }
+}
