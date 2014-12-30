@@ -1,0 +1,106 @@
+= Blogging with JBake and GitHub Pages
+Sion Williams
+2014-12-30
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, jbake, githubpages, gradle, gvm
+:idprefix:
+
+Welcome to the new blog
+-----------------------
+
+First of all a great thanks to http://robertmcintosh.me/[Mac] for steering me in the direction of JBake. His blog inspired
+me to spend the time and implement my own version.
+
+I'm not going to spend a long time on this because there is a plethora of information online - rather I will add tips here
+and links to the resources I used.
+
+How to do it....
+----------------
+
+Here's a list of tools you will need to follow along:
+
+* http://gvmtool.net/[GVM the Groovy enVironment Manager]
+* http://www.gradle.org/[Gradle]
+* http://jbake.org/[JBake]
+* http://git-scm.com/[Git]
+
+Use GVM to install Gradle and JBake latest. This will save you a lot of manual installation. Sorry Windows people,
+but you will have to install manually unless you use https://www.cygwin.com/[Cygwin] and GVM.
+
+Follow the instructions on the Git website to install Git.
+
+
+Set up a GitHub Pages Project
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.Resource
+TIP: https://help.github.com/articles/creating-project-pages-manually/[Github - Creating Project Pages manually]
+
+. Create a new repository on GitHub - I called mine 'blog'.
+. Make a fresh clone
+. Create a `gh-pages` branch - this *must* be an orphaned branch. Follow the steps in the link above.
+
+The rest ....
+~~~~~~~~~~~~~
+
+.Resource
+TIP: https://melix.github.io/blog/2014/02/hosting-jbake-github.html[Authoring your blog on GitHub with JBake and Gradle]
+
+NOTE: As of writing this blog the `publish` task is now renamed to `publishGhPages`
+
+To finish off this project I followed Cédric's tutorial shown in the link above. However, rather than have 2 separate build
+files I opted for a single build script. I didn't notice any of the classpath issues that Cédric has raised in his post.
+
+My build file:
+
+[source,groovy]
+----
+buildscript {
+  repositories {
+      jcenter()
+  }
+
+  dependencies {
+    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
+
+    // optional, if you use asciidoctor markup
+    classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
+
+    // optional, if you use freemarker template engine
+    classpath 'org.freemarker:freemarker:2.3.19'
+
+    classpath 'org.ajoberstar:gradle-git:0.12.0'
+  }
+}
+
+apply plugin: 'me.champeau.jbake'
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+  repoUri = 'git@github.com:willis7/blog.git'
+  pages {
+    from(file('build/jbake')) {
+      into '.'
+    }
+  }
+}
+----
+
+
+NOTE: I'm using the SSH communication protocol with GitHub. I did try simple authentication, but had problems and switched to SSH.
+Theres a great https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git[tutorial by Atlassian] that guides you through the steps.
+Whilst it is for Bitbucket, the steps are relevant to GitHub.
+
+Conclusion
+~~~~~~~~~~
+
+For the amount of blogging that I do, I guess it begs the question why I would switch from blogger. Well, the truth is it was
+more about the challenge and the learning. When I originally opened my blog it was intended
+to be a personal reminder of problems I encountered and the solutions I found. If someone got benefit from them, then that's
+even better.
+
+So far I have enjoyed the flexibility brought through the use of JBake. I can play with many template engines, explore CSS and JS
+all within the confines of my own blog. Also, as I'm using Git if I stuff something up I can always revert back to a working version.
+
+A pleasurable experience in all. Easy to get started too!
