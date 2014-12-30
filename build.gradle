@@ -27,3 +27,5 @@ githubPages {
     }
   }
 }
+
+publishGhPages.dependsOn jbake
