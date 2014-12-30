@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Debugging Grails tests with Intellij</title>
+    <title>Weblogic/WLST - Packing and Unpacking a domain</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -54,49 +54,89 @@
     <div class="container">
 	
 	<div class="page-header">
-		<h1>Debugging Grails tests with Intellij</h1>
+		<h1>Weblogic/WLST - Packing and Unpacking a domain</h1>
 	</div>
 
-	<p><em>29 December 2014</em></p>
+	<p><em>19 May 2012</em></p>
 
 	<p><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>I was having some real headaches with debugging my unit tests today. With the introduction of forked execution came the breakage of Intellij debugging.</p>
+<p>When you start working with distributed domains there will come a time when you need to pack the domain and unpack it in its distributed areas.</p>
 </div>
 <div class="paragraph">
-<p>There are some rather long winded ways of applying remote debuggers, and Ted does a great job of breaking the problem
-down and <a href="http://naleid.com/blog/2014/11/10/debugging-grails-forked-mode">offering a solution</a>. However, in my rather tiny
-Grails application I was happy to sacrifice the <a href="http://grails.io/post/43484836985/road-to-grails-2-3-forked-execution">benefits of forked execution</a> - at least for my tests.</p>
+<p>Whether you create your domain via the GUI or by scripting, all you&#8217;re actually doing is creating a series of configuration files. At this point you&#8217;re not actually starting any servers - that comes later.</p>
 </div>
 <div class="paragraph">
-<p>So, in BuildConfig.groovy I changed the following block:</p>
+<p>Lets consider the following architecture:</p>
+</div>
+<div class="paragraph">
+<p>AdminServer = Machine A
+Managed01   = Machine B
+Managed02   = Machine C
+Cluster01   = Managed01, Managed02</p>
+</div>
+<div class="paragraph">
+<p>So, you run through the wizard and configured the domain above. You should now notice your domain has been created on Machine A, but if you log into Machine B or C nothing exists. This is where the need to Pack and UnPack comes in.</p>
+</div>
+<div class="paragraph">
+<p>To pack the domain run the following WLST script:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint groovy language-groovy"><code>grails.project.fork = [
-    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
-    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
-]</code></pre>
+<pre class="prettyprint python language-python"><code># Create a template .jar of an existing domain
+# Open an existing domain
+
+readDomain(domainDirName)
+
+# Write the domain configuration information to a domain template
+writeTemplate(templateName)
+
+closeDomain(templateName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>to:</p>
+<p>This script opens the domain and extracts (as a jar) the configurations required
+for the servers that will reside on Machines B and C. It&#8217;s a skeleton configuration
+because the Admin server information will be excluded - a domain only ever has 1
+Admin server.</p>
+</div>
+<div class="paragraph">
+<p>Now that we have a templateName.jar we can send it to the machines that the rest
+of the domain will reside on and run the unpack script on each machine:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint groovy language-groovy"><code>grails.project.fork = [
-    test: false,
-    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
-]</code></pre>
+<pre class="prettyprint python language-python"><code># unpack.py: convert from unpack command to wlst script
+# This script shows how to convert from the unpack command to a wlst script.
+# Note that the domain and template values, and the options to setOption, must be single-quoted
+# Specify the template that you want to use
+
+readTemplate('c:\wls9\user_templates\wlst_wls_template.jar')
+
+# If you specified the -username and -password option in the unpack command,
+# Specify them here. Otherwise, delete these lines`
+# Note that the domain_name field here is just the name of the domain, not the full path as specified in writeDomain below
+
+cd ('/Security/&lt;domain-name&gt;')
+create (&lt;user_name&gt;,'User')
+cd ('User/&lt;user_name&gt;')
+set ('Password',&lt;password&gt;)
+
+# analogous to unpack -java_home
+setOption('JavaHome',&lt;java_home&gt;)
+
+# analogous to unpack -server_start_mode
+setOption('ServerStartMode',&lt;server_start_mode&gt;)
+
+# analogous to unpack -app_dir
+setOption('AppDir',&lt;app_dir&gt;)
+
+# write the domain
+writeDomain(&lt;domain&gt;)
+
+closeTemplate()</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>This change tells Grails that when we run the test configuration it shouldn&#8217;t run in forked mode - this is anything we would run using the <em>test-app</em> Grails command.</p>
 </div>
 </div>
 </div></p>

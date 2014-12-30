@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Debugging Grails tests with Intellij</title>
+    <title>Gradle Logging - Writing the build output to a file</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -54,49 +54,40 @@
     <div class="container">
 	
 	<div class="page-header">
-		<h1>Debugging Grails tests with Intellij</h1>
+		<h1>Gradle Logging - Writing the build output to a file</h1>
 	</div>
 
-	<p><em>29 December 2014</em></p>
+	<p><em>17 October 2013</em></p>
 
 	<p><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>I was having some real headaches with debugging my unit tests today. With the introduction of forked execution came the breakage of Intellij debugging.</p>
-</div>
-<div class="paragraph">
-<p>There are some rather long winded ways of applying remote debuggers, and Ted does a great job of breaking the problem
-down and <a href="http://naleid.com/blog/2014/11/10/debugging-grails-forked-mode">offering a solution</a>. However, in my rather tiny
-Grails application I was happy to sacrifice the <a href="http://grails.io/post/43484836985/road-to-grails-2-3-forked-execution">benefits of forked execution</a> - at least for my tests.</p>
-</div>
-<div class="paragraph">
-<p>So, in BuildConfig.groovy I changed the following block:</p>
+<p>This simple snippet adds 2 additional output listeners;
+<a href="https://en.wikipedia.org/wiki/Standard_streams">Standard Out and Standard Error</a>
+and pipes their output to a build log.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint groovy language-groovy"><code>grails.project.fork = [
-    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
-    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
-]</code></pre>
+<pre class="prettyprint groovy language-groovy"><code>def tstamp = new Date().format('yyyy-MM-dd_HH-mm-ss')
+def buildLogDir = "${rootDir}/build/logs"
+mkdir("${buildLogDir}")
+def buildLog = new File("${buildLogDir}/${tstamp}_buildLog.log")
+
+import org.gradle.logging.internal.*
+System.setProperty('org.gradle.color.error', 'RED')
+
+gradle.services.get(LoggingOutputInternal).addStandardOutputListener (new StandardOutputListener () {
+    void onOutput(CharSequence output) {
+        buildLog &lt;&lt; output
+    }
+})
+
+gradle.services.get(LoggingOutputInternal).addStandardErrorListener (new StandardOutputListener () {
+    void onOutput(CharSequence output) {
+        buildLog &lt;&lt; output
+    }
+})</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>to:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint groovy language-groovy"><code>grails.project.fork = [
-    test: false,
-    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
-]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This change tells Grails that when we run the test configuration it shouldn&#8217;t run in forked mode - this is anything we would run using the <em>test-app</em> Grails command.</p>
 </div>
 </div>
 </div></p>
