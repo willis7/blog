@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">Willis7</a>
+          <a class="navbar-brand" href="">Sion's Blog</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -56,6 +56,179 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2014/jbake-blog.html"><h1>Blogging with JBake and GitHub Pages</h1></a>
+  			<p>30 December 2014</p>
+  			<p><div class="sect1">
+<h2 id="welcome_to_the_new_blog">Welcome to the new blog</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First of all a great thanks to <a href="http://robertmcintosh.me/">Mac</a> for steering me in the direction of JBake. His blog inspired
+me to spend the time and implement my own version.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m not going to spend a long time on this because there is a plethora of information online - rather I will add tips here
+and links to the resources I used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how_to_do_it">How to do it&#8230;.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s a list of tools you will need to follow along:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://gvmtool.net/">GVM the Groovy enVironment Manager</a></p>
+</li>
+<li>
+<p><a href="http://www.gradle.org/">Gradle</a></p>
+</li>
+<li>
+<p><a href="http://jbake.org/">JBake</a></p>
+</li>
+<li>
+<p><a href="http://git-scm.com/">Git</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use GVM to install Gradle and JBake latest. This will save you a lot of manual installation. Sorry Windows people,
+but you will have to install manually unless you use <a href="https://www.cygwin.com/">Cygwin</a> and GVM.</p>
+</div>
+<div class="paragraph">
+<p>Follow the instructions on the Git website to install Git.</p>
+</div>
+<div class="sect2">
+<h3 id="set_up_a_github_pages_project">Set up a GitHub Pages Project</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="title">Resource</div>
+<a href="https://help.github.com/articles/creating-project-pages-manually/">Github - Creating Project Pages manually</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new repository on GitHub - I called mine <em>blog</em>.</p>
+</li>
+<li>
+<p>Make a fresh clone</p>
+</li>
+<li>
+<p>Create a <code>gh-pages</code> branch - this <strong>must</strong> be an orphaned branch. Follow the steps in the link above.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the_rest">The rest &#8230;.</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="title">Resource</div>
+<a href="https://melix.github.io/blog/2014/02/hosting-jbake-github.html">Authoring your blog on GitHub with JBake and Gradle</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+As of writing this blog the <code>publish</code> task is now renamed to <code>publishGhPages</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To finish off this project I followed Cédric&#8217;s tutorial shown in the link above. However, rather than have 2 separate build
+files I opted for a single build script. I didn&#8217;t notice any of the classpath issues that Cédric has raised in his post.</p>
+</div>
+<div class="paragraph">
+<p>My build file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>buildscript {
+  repositories {
+      jcenter()
+  }
+
+  dependencies {
+    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
+
+    // optional, if you use asciidoctor markup
+    classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
+
+    // optional, if you use freemarker template engine
+    classpath 'org.freemarker:freemarker:2.3.19'
+
+    classpath 'org.ajoberstar:gradle-git:0.12.0'
+  }
+}
+
+apply plugin: 'me.champeau.jbake'
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+  repoUri = 'git@github.com:willis7/blog.git'
+  pages {
+    from(file('build/jbake')) {
+      into '.'
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+I&#8217;m using the SSH communication protocol with GitHub. I did try simple authentication, but had problems and switched to SSH.
+Theres a great <a href="https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git">tutorial by Atlassian</a> that guides you through the steps.
+Whilst it is for Bitbucket, the steps are relevant to GitHub.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>For the amount of blogging that I do, I guess it begs the question why I would switch from blogger. Well, the truth is it was
+more about the challenge and the learning. When I originally opened my blog it was intended
+to be a personal reminder of problems I encountered and the solutions I found. If someone got benefit from them, then that&#8217;s
+even better.</p>
+</div>
+<div class="paragraph">
+<p>So far I have enjoyed the flexibility brought through the use of JBake. I can play with many template engines, explore CSS and JS
+all within the confines of my own blog. Also, as I&#8217;m using Git if I stuff something up I can always revert back to a working version.</p>
+</div>
+<div class="paragraph">
+<p>A pleasurable experience in all. Easy to get started too!</p>
+</div>
+</div>
+</div>
+</div></p>
   			<a href="blog/2014/debugging-grails-intellij.html"><h1>Debugging Grails tests with Intellij</h1></a>
   			<p>29 December 2014</p>
   			<p><div id="preamble">
