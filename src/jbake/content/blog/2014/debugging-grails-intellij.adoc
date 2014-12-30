@@ -14,7 +14,7 @@ Grails application I was happy to sacrifice the http://grails.io/post/4348483698
 
 So, in BuildConfig.groovy I changed the following block:
 
-[source,groovy,numbered]
+[source,groovy]
 grails.project.fork = [
     test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
@@ -23,7 +23,7 @@ grails.project.fork = [
 ]
 
 to:
-[source,groovy,numbered]
+[source,groovy]
 grails.project.fork = [
     test: false,
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],

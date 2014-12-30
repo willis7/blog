@@ -1,0 +1,34 @@
+= Gradle Logging - Writing the build output to a file
+Sion Williams
+2013-10-17
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, gradle, logging, build
+:idprefix:
+
+This simple snippet adds 2 additional output listeners;
+https://en.wikipedia.org/wiki/Standard_streams[Standard Out and Standard Error]
+and pipes their output to a build log.
+
+[source,groovy]
+---------------------------------------------------------------------
+def tstamp = new Date().format('yyyy-MM-dd_HH-mm-ss')
+def buildLogDir = "${rootDir}/build/logs"
+mkdir("${buildLogDir}")
+def buildLog = new File("${buildLogDir}/${tstamp}_buildLog.log")
+
+import org.gradle.logging.internal.*
+System.setProperty('org.gradle.color.error', 'RED')
+
+gradle.services.get(LoggingOutputInternal).addStandardOutputListener (new StandardOutputListener () {
+    void onOutput(CharSequence output) {
+        buildLog << output
+    }
+})
+
+gradle.services.get(LoggingOutputInternal).addStandardErrorListener (new StandardOutputListener () {
+    void onOutput(CharSequence output) {
+        buildLog << output
+    }
+})
+---------------------------------------------------------------------
