@@ -1,0 +1,44 @@
+= New Year, New Tech
+Sion Williams
+2014-12-31
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: hacking, penetration test,
+:idprefix:
+
+So, its the last day of 2014 and I've been thinking about some of the things I've achieved, and gave some thought
+to what I would like to achieve in 2015. It's a well known fact that information  changes, so to stay current any self respecting IT
+professional should be constantly aspiring to learn new things, or better understand what they know already.
+
+Here's my shortlist of subjects I would like to enhance my knowledge of in the new year:
+
+* White hat hacking & Penetration testing
+* Sysadmin
+* Meta programming
+* Work through a few http://www.google.com/edu/tools-and-solutions/guide-for-technical-development/index.html[Google recommended subjects]
+
+Lets discuss them in turn:
+
+.Hacking
+We all know how to test our code with unit, integration and exploratory testing. However, most people rarely pay much attention to
+the security elements. Ok, so most people can run static analysis with tools such as OWASP, but that still leaves the dynamic
+elements vulnerable. My aim is to understand some of the common ways of hacking software, and then use that knowledge to
+better inform some design and implementation patterns in my code.
+
+.Sysadmin
+I can navigate my way through a *nix system fairly easily, but I wouldn't say im a pro. In fact, if someone took Google away
+I would be fairly stuck. My goal is to learn 15 of the most common commands and practice using them on a regular basis. This is
+very much how I learnt to use Git proficiently.
+
+.Meta programming
+An interesting concept that I've hear used a lot, but not ever taken a deep dive into. I'm aware of its benefits in creating
+DSL's, so I would like to spend some time working with this cool feature. As I'm still having a lot of fun with Groovy
+I suspect that will be the language I use to explore http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations[Meta Programming].
+
+.Work through a few Google recommendations
+I'm particularly interesting in the discreet mathematics. As a student I didn't really enjoy maths, but as ive grown older (and wiser)
+I've gained an appreciation for maths. I guess I've come to accept that without maths, we probably wouldn't have IT as we know it
+today. Its only fair that I give it the respect it deserves.
+
+So, thats my list of things I will be playing around with in 2015. I will try to blog what I've learnt and how I've understood the
+subject, and hopefully share my experience with other like-minded people.
