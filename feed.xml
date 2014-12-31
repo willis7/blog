@@ -6,9 +6,77 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 30 Dec 2014 15:17:57 +0000</pubDate>
-    <lastBuildDate>Tue, 30 Dec 2014 15:17:57 +0000</lastBuildDate>
+    <pubDate>Wed, 31 Dec 2014 16:24:29 +0000</pubDate>
+    <lastBuildDate>Wed, 31 Dec 2014 16:24:29 +0000</lastBuildDate>
 
+    <item>
+      <title>New Year, New Tech</title>
+      <link>https://willis7.github.io/blog/blog/2014/new-year-new-tech.html</link>
+      <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2014/new-year-new-tech.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, its the last day of 2014 and I&amp;#8217;ve been thinking about some of the things I&amp;#8217;ve achieved, and gave some thought
+to what I would like to achieve in 2015. It&amp;#8217;s a well known fact that information  changes, so to stay current any self respecting IT
+professional should be constantly aspiring to learn new things, or better understand what they know already.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here&amp;#8217;s my shortlist of subjects I would like to enhance my knowledge of in the new year:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;White hat hacking &amp;amp; Penetration testing&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sysadmin&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Meta programming&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Work through a few &lt;a href=&quot;http://www.google.com/edu/tools-and-solutions/guide-for-technical-development/index.html&quot;&gt;Google recommended subjects&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lets discuss them in turn:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Hacking&lt;/div&gt;
+&lt;p&gt;We all know how to test our code with unit, integration and exploratory testing. However, most people rarely pay much attention to
+the security elements. Ok, so most people can run static analysis with tools such as OWASP, but that still leaves the dynamic
+elements vulnerable. My aim is to understand some of the common ways of hacking software, and then use that knowledge to
+better inform some design and implementation patterns in my code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Sysadmin&lt;/div&gt;
+&lt;p&gt;I can navigate my way through a *nix system fairly easily, but I wouldn&amp;#8217;t say im a pro. In fact, if someone took Google away
+I would be fairly stuck. My goal is to learn 15 of the most common commands and practice using them on a regular basis. This is
+very much how I learnt to use Git proficiently.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Meta programming&lt;/div&gt;
+&lt;p&gt;An interesting concept that I&amp;#8217;ve hear used a lot, but not ever taken a deep dive into. I&amp;#8217;m aware of its benefits in creating
+DSL&amp;#8217;s, so I would like to spend some time working with this cool feature. As I&amp;#8217;m still having a lot of fun with Groovy
+I suspect that will be the language I use to explore &lt;a href=&quot;http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations&quot;&gt;Meta Programming&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Work through a few Google recommendations&lt;/div&gt;
+&lt;p&gt;I&amp;#8217;m particularly interesting in the discreet mathematics. As a student I didn&amp;#8217;t really enjoy maths, but as ive grown older (and wiser)
+I&amp;#8217;ve gained an appreciation for maths. I guess I&amp;#8217;ve come to accept that without maths, we probably wouldn&amp;#8217;t have IT as we know it
+today. Its only fair that I give it the respect it deserves.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, thats my list of things I will be playing around with in 2015. I will try to blog what I&amp;#8217;ve learnt and how I&amp;#8217;ve understood the
+subject, and hopefully share my experience with other like-minded people.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Blogging with JBake and GitHub Pages</title>
       <link>https://willis7.github.io/blog/blog/2014/jbake-blog.html</link>
