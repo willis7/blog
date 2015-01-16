@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Willis7</title>
+    <title>Debugging Gradle Plugins in Intellij</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -10,14 +10,14 @@
     <meta name="generator" content="JBake">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/asciidoctor.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/prettify.css" rel="stylesheet">
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link href="../../../css/prettify.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
+      <script src="../../../js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -25,11 +25,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="../../../favicon.ico">
   </head>
   <body onload="prettyPrint()">
     <div id="wrap">
-
+	
 	<!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
@@ -40,13 +40,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">Sion's Blog</a>
+          <a class="navbar-brand" href="../../../">Sion's Blog</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="feed.xml">Subscribe</a></li>
+            <li><a href="../../../index.html">Home</a></li>
+            <li><a href="../../../about.html">About</a></li>
+            <li><a href="../../../feed.xml">Subscribe</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -54,20 +54,52 @@
     <div class="container">
 	
 	<div class="page-header">
-		<h1>Tag:  intellij</h1>
+		<h1>Debugging Gradle Plugins in Intellij</h1>
 	</div>
-	
-	<!--<ul>-->
-			<h4>January 2015</h4>
-			<ul>
-		
-		<li>16 - <a href="blog/2015/01/debugging-gradle-intellij.html">Debugging Gradle Plugins in Intellij</a></li>
-				</ul>
-				<h4>December 2014</h4>
-				<ul>
-		
-		<li>29 - <a href="blog/2014/debugging-grails-intellij.html">Debugging Grails tests with Intellij</a></li>
-	</ul>
+
+	<p><em>16 January 2015</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ok, so this one had me stumped for a while and the solution was extremely simple.</p>
+</div>
+<div class="paragraph">
+<p>I read lots of information in the Gradle forums on this and it sent me in the wrong
+direction. Loads of articles saying to set certain flags/GRADLE_OPTS, which isnt necessary.</p>
+</div>
+<div class="paragraph">
+<p>So, in Intellij (im using version 14), set your breakpoint and from the Gradle Tool Window
+in <em>all tasks</em> area, right click the task and select the debug option from the context
+menu.</p>
+</div>
+<div class="paragraph">
+<p>Voila!</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.jetbrains.com/idea/help/working-with-gradle-tasks-in-gradle-tool-window.html">Intellij docs</a></p>
+</div>
+</div>
+</div></p>
+
+	<!-- **** DISQUS **** -->
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+		var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
+
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	<!-- **** END **** -->
+
+	<hr />
 	
 		</div>
 		<div id="push"></div>
@@ -82,9 +114,9 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/prettify.js"></script>
+    <script src="../../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/prettify.js"></script>
 
     <!-- **** DISQUS **** -->
     <script type="text/javascript">

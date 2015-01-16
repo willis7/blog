@@ -6,9 +6,39 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 31 Dec 2014 16:24:29 +0000</pubDate>
-    <lastBuildDate>Wed, 31 Dec 2014 16:24:29 +0000</lastBuildDate>
+    <pubDate>Fri, 16 Jan 2015 17:05:49 +0000</pubDate>
+    <lastBuildDate>Fri, 16 Jan 2015 17:05:49 +0000</lastBuildDate>
 
+    <item>
+      <title>Debugging Gradle Plugins in Intellij</title>
+      <link>https://willis7.github.io/blog/blog/2015/01/debugging-gradle-intellij.html</link>
+      <pubDate>Fri, 16 Jan 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/01/debugging-gradle-intellij.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ok, so this one had me stumped for a while and the solution was extremely simple.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I read lots of information in the Gradle forums on this and it sent me in the wrong
+direction. Loads of articles saying to set certain flags/GRADLE_OPTS, which isnt necessary.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, in Intellij (im using version 14), set your breakpoint and from the Gradle Tool Window
+in &lt;em&gt;all tasks&lt;/em&gt; area, right click the task and select the debug option from the context
+menu.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Voila!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jetbrains.com/idea/help/working-with-gradle-tasks-in-gradle-tool-window.html&quot;&gt;Intellij docs&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>New Year, New Tech</title>
       <link>https://willis7.github.io/blog/blog/2014/new-year-new-tech.html</link>
