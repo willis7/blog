@@ -3,10 +3,13 @@
 	<#include "menu.ftl">
 	
 	<div class="page-header">
-		<h1><#escape x as x?xml>${content.title}</#escape></h1>
+		<h1>${content.title}</h1>
 	</div>
 
 	<p><em>${content.date?string("dd MMMM yyyy")}</em></p>
+	<p><em>Tags: <#list content.tags as tag></em>
+		<a href="/blog/tags/${tag?trim?replace(' ','-')}.html">${tag}</a>
+	</#list></p>
 
 	<p>${content.body}</p>
 
@@ -27,6 +30,6 @@
 	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 	<!-- **** END **** -->
 
-	<hr />
+	<hr>
 	
 <#include "footer.ftl">
