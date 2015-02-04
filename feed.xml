@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 22 Jan 2015 20:16:37 +0000</pubDate>
-    <lastBuildDate>Thu, 22 Jan 2015 20:16:37 +0000</lastBuildDate>
+    <pubDate>Wed, 4 Feb 2015 21:03:24 +0000</pubDate>
+    <lastBuildDate>Wed, 4 Feb 2015 21:03:24 +0000</lastBuildDate>
 
     <item>
       <title>Debugging Gradle Plugins in Intellij</title>
@@ -330,6 +330,113 @@ Grails application I was happy to sacrifice the &lt;a href=&quot;http://grails.i
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;This change tells Grails that when we run the test configuration it shouldn&amp;#8217;t run in forked mode - this is anything we would run using the &lt;em&gt;test-app&lt;/em&gt; Grails command.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
+    <item>
+      <title>Method on class [] was used outside of a Grails application.</title>
+      <link>https://willis7.github.io/blog/blog/2014/method-on-class-grails.html</link>
+      <pubDate>Thu, 11 Dec 2014 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2014/method-on-class-grails.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Method on class [] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;java.lang.IllegalStateException: Method on class [com.willis.heimdall.Booking] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.
+      at com.willis.heimdall.BookingIntegSpec.test saving a booking to the db(BookingIntegSpec.groovy:24)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I recently had this error on one of my simple examples. A real facepalm moment when I look back in retrospect but ho hum, the fix is nice and easy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Broken Code:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;package com.willis.heimdall
+
+import org.joda.time.DateTime
+import spock.lang.Shared
+import spock.lang.Specification
+
+/**
+ * Integration tests for the Booking model
+ * @author Sion Williams
+ */
+class BookingIntegSpec extends Specification {
+    @Shared def today = new DateTime()
+    @Shared def todayPlusWeek = today.plusWeeks(1)
+
+    def &apos;test saving a booking to the db&apos;() {
+        given: &apos;a new booking booking&apos;
+        def booking = new Booking(name: &apos;my booking&apos;,
+                startTime: today.toDate(),
+                endTime: todayPlusWeek.toDate())
+
+        when: &apos;the booking is saved&apos;
+        booking.save()
+
+        then: &apos;it can be successfully found in the database&apos;
+        booking.errors.errorCount == 0
+        booking.id != null
+        Booking.get(booking.id).name == &apos;my booking&apos;
+        Booking.get(booking.id).startTime == today.toDate()
+        Booking.get(booking.id).endTime == todayPlusWeek.toDate()
+
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Fixed Code:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;package com.willis.heimdall
+
+import grails.test.mixin.TestFor
+import org.joda.time.DateTime
+import spock.lang.Shared
+import spock.lang.Specification
+
+/**
+ * Integration tests for the Booking model
+ * @author Sion Williams
+ */
+@TestFor(Booking)
+class BookingIntegSpec extends Specification {
+    @Shared def today = new DateTime()
+    @Shared def todayPlusWeek = today.plusWeeks(1)
+
+    def &apos;test saving a booking to the db&apos;() {
+        given: &apos;a new booking booking&apos;
+        def booking = new Booking(name: &apos;my booking&apos;,
+                startTime: today.toDate(),
+                endTime: todayPlusWeek.toDate())
+
+        when: &apos;the booking is saved&apos;
+        booking.save()
+
+        then: &apos;it can be successfully found in the database&apos;
+        booking.errors.errorCount == 0
+        booking.id != null
+        Booking.get(booking.id).name == &apos;my booking&apos;
+        Booking.get(booking.id).startTime == today.toDate()
+        Booking.get(booking.id).endTime == todayPlusWeek.toDate()
+
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Note here that we have told Grails what we are testing with the @TestFor() annotation so that it can set up the relevant mocks and stubs in the background.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
