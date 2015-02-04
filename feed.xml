@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 4 Feb 2015 21:03:24 +0000</pubDate>
-    <lastBuildDate>Wed, 4 Feb 2015 21:03:24 +0000</lastBuildDate>
+    <pubDate>Wed, 4 Feb 2015 21:21:40 +0000</pubDate>
+    <lastBuildDate>Wed, 4 Feb 2015 21:21:40 +0000</lastBuildDate>
 
     <item>
       <title>Debugging Gradle Plugins in Intellij</title>
@@ -346,11 +346,20 @@ Grails application I was happy to sacrifice the &lt;a href=&quot;http://grails.i
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Method on class [] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;java.lang.IllegalStateException: Method on class [com.willis.heimdall.Booking] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.
-      at com.willis.heimdall.BookingIntegSpec.test saving a booking to the db(BookingIntegSpec.groovy:24)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;java.lang.IllegalStateException: Method on class [com.willis.heimdall.Booking] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.
+      at com.willis.heimdall.BookingIntegSpec.test saving a booking to the db(BookingIntegSpec.groovy:24)&lt;/p&gt;
 &lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I recently had this error on one of my simple examples. A real facepalm moment when I look back in retrospect but ho hum, the fix is nice and easy.&lt;/p&gt;

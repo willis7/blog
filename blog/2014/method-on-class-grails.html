@@ -71,11 +71,20 @@
 <div class="paragraph">
 <p>Method on class [] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint groovy language-groovy"><code>java.lang.IllegalStateException: Method on class [com.willis.heimdall.Booking] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.
-      at com.willis.heimdall.BookingIntegSpec.test saving a booking to the db(BookingIntegSpec.groovy:24)</code></pre>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>java.lang.IllegalStateException: Method on class [com.willis.heimdall.Booking] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.
+      at com.willis.heimdall.BookingIntegSpec.test saving a booking to the db(BookingIntegSpec.groovy:24)</p>
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>I recently had this error on one of my simple examples. A real facepalm moment when I look back in retrospect but ho hum, the fix is nice and easy.</p>
