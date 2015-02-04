@@ -4,7 +4,6 @@ Sion Williams
 :jbake-type: post
 :jbake-status: published
 :jbake-tags: gradle, plug-in, intellij, debugging
-:idprefix:
 
 Ok, so this one had me stumped for a while and the solution was extremely simple.
 
