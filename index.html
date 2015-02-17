@@ -55,6 +55,61 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2015/02/read-pom-from-xml.html"><h1>Reading a POM from Gradle</h1></a>
+  			<p>17 February 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reading a Maven POM is Easy with Gradle and Groovy!</p>
+</div>
+<div class="paragraph">
+<p>The inspiration for this post came from the post here:
+<a href="https://stackoverflow.com/questions/11558157/reading-info-from-existing-pom-xml-file-using-gradle">Reading info from existing pom.xml file using Gradle?</a></p>
+</div>
+<div class="paragraph">
+<p>Naively I implemented the first solution which is given below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>defaultTasks 'hello'
+
+repositories {
+  mavenCentral()
+}
+configurations {
+  mavenAntTasks
+}
+dependencies {
+  mavenAntTasks 'org.apache.maven:maven-ant-tasks:2.1.3'
+}
+
+task hello &lt;&lt; {
+  ant.taskdef(
+    resource: 'org/apache/maven/artifact/ant/antlib.xml',
+    uri: 'antlib:org.apache.maven.artifact.ant',
+    classpath: configurations.mavenAntTasks.asPath)
+
+  ant.'antlib:org.apache.maven.artifact.ant:pom'(id:'mypom', file:'pom.xml')
+  println ant.references['mypom'].version
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, this solution did meet the original posters requirement. However, after running the hello task I was surprised to see
+a few libs being downloaded which didn&#8217;t feel slick.</p>
+</div>
+<div class="paragraph">
+<p>In true groovy fashion this could be achieved much more simply using the code below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>def pom = new XmlSlurper().parse(new File('pom.xml'))
+
+println 'my pom version ' + pom.version</code></pre>
+</div>
+</div>
+</div>
+</div></p>
   			<a href="blog/2015/01/debugging-gradle-intellij.html"><h1>Debugging Gradle Plugins in Intellij</h1></a>
   			<p>16 January 2015</p>
   			<p><div id="preamble">

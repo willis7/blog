@@ -6,9 +6,70 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 4 Feb 2015 21:24:21 +0000</pubDate>
-    <lastBuildDate>Wed, 4 Feb 2015 21:24:21 +0000</lastBuildDate>
+    <pubDate>Tue, 17 Feb 2015 13:37:58 +0000</pubDate>
+    <lastBuildDate>Tue, 17 Feb 2015 13:37:58 +0000</lastBuildDate>
 
+    <item>
+      <title>Reading a POM from Gradle</title>
+      <link>https://willis7.github.io/blog/blog/2015/02/read-pom-from-xml.html</link>
+      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/02/read-pom-from-xml.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Reading a Maven POM is Easy with Gradle and Groovy!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The inspiration for this post came from the post here:
+&lt;a href=&quot;https://stackoverflow.com/questions/11558157/reading-info-from-existing-pom-xml-file-using-gradle&quot;&gt;Reading info from existing pom.xml file using Gradle?&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Naively I implemented the first solution which is given below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;defaultTasks &apos;hello&apos;
+
+repositories {
+  mavenCentral()
+}
+configurations {
+  mavenAntTasks
+}
+dependencies {
+  mavenAntTasks &apos;org.apache.maven:maven-ant-tasks:2.1.3&apos;
+}
+
+task hello &amp;lt;&amp;lt; {
+  ant.taskdef(
+    resource: &apos;org/apache/maven/artifact/ant/antlib.xml&apos;,
+    uri: &apos;antlib:org.apache.maven.artifact.ant&apos;,
+    classpath: configurations.mavenAntTasks.asPath)
+
+  ant.&apos;antlib:org.apache.maven.artifact.ant:pom&apos;(id:&apos;mypom&apos;, file:&apos;pom.xml&apos;)
+  println ant.references[&apos;mypom&apos;].version
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, this solution did meet the original posters requirement. However, after running the hello task I was surprised to see
+a few libs being downloaded which didn&amp;#8217;t feel slick.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In true groovy fashion this could be achieved much more simply using the code below:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;def pom = new XmlSlurper().parse(new File(&apos;pom.xml&apos;))
+
+println &apos;my pom version &apos; + pom.version&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Debugging Gradle Plugins in Intellij</title>
       <link>https://willis7.github.io/blog/blog/2015/01/debugging-gradle-intellij.html</link>
