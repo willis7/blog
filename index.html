@@ -55,6 +55,64 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2015/02/mac-mongodb.html"><h1>Setup MongoDB on Mac Yosemite</h1></a>
+  			<p>17 February 2015</p>
+  			<p><div class="sect1">
+<h2 id="_install_mongodb_with_homebrew">Install MongoDB with Homebrew</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ brew install mongodb
+$ mkdir -p /data/db</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_set_permissions_for_the_data_directory">Set permissions for the data directory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ensure that user account running mongod has correct permissions for the directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ sudo chmod 0755 /data/db
+$ sudo chown $USER /data/db</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_mongodb">Run MongoDB!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>$ mongod</code></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Note:</strong> If you get something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>exception in initAndListen: 10309 Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied Is a mongod instance already running?, terminating</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It means that <code>/data/db</code> lacks required permission and ownership.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>ls -ld /data/db/</code></p>
+</div>
+<div class="paragraph">
+<p>Output should look like this (<code>willis7</code> is directory owner and <code>staff</code> is group to which willis7 belongs):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>drwxr-xr-x  7 willis7  staff  238 Aug  5 11:07 /data/db/</code></pre>
+</div>
+</div>
+</div>
+</div></p>
   			<a href="blog/2015/02/read-pom-from-xml.html"><h1>Reading a POM from Gradle</h1></a>
   			<p>17 February 2015</p>
   			<p><div id="preamble">

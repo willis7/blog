@@ -6,9 +6,73 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 17 Feb 2015 13:37:58 +0000</pubDate>
-    <lastBuildDate>Tue, 17 Feb 2015 13:37:58 +0000</lastBuildDate>
+    <pubDate>Sun, 22 Feb 2015 11:22:14 +0000</pubDate>
+    <lastBuildDate>Sun, 22 Feb 2015 11:22:14 +0000</lastBuildDate>
 
+    <item>
+      <title>Setup MongoDB on Mac Yosemite</title>
+      <link>https://willis7.github.io/blog/blog/2015/02/mac-mongodb.html</link>
+      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/02/mac-mongodb.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_install_mongodb_with_homebrew&quot;&gt;Install MongoDB with Homebrew&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;$ brew install mongodb
+$ mkdir -p /data/db&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_set_permissions_for_the_data_directory&quot;&gt;Set permissions for the data directory&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ensure that user account running mongod has correct permissions for the directory:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;$ sudo chmod 0755 /data/db
+$ sudo chown $USER /data/db&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_run_mongodb&quot;&gt;Run MongoDB!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;$ mongod&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; If you get something like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;exception in initAndListen: 10309 Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied Is a mongod instance already running?, terminating&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It means that &lt;code&gt;/data/db&lt;/code&gt; lacks required permission and ownership.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Run &lt;code&gt;ls -ld /data/db/&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Output should look like this (&lt;code&gt;willis7&lt;/code&gt; is directory owner and &lt;code&gt;staff&lt;/code&gt; is group to which willis7 belongs):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;drwxr-xr-x  7 willis7  staff  238 Aug  5 11:07 /data/db/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Reading a POM from Gradle</title>
       <link>https://willis7.github.io/blog/blog/2015/02/read-pom-from-xml.html</link>
