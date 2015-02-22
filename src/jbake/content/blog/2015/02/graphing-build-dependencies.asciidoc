@@ -1,0 +1,30 @@
+= Dependency Management - Modelling Suppliers and Consumers
+Sion Williams
+2015-02-22
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: gradle, maven, pom, dependencies, graph
+
+== Introduction
+
+Dependency management has come a long way over the past 10 years, but I believe it has some way to go before we can consider the problem solved.
+
+Consider the scenario where you have developed a library which inadvertently introduced a severe security vulnerability. Because your organisation believes in reuse it has been used in many different projects. The Maven POM (Project Object Model) does a good job in providing us with meta-data about the modules which are _suppliers_ to a project, but it does not capture information about who the _consumers_ of it are. So, we have a dangerous library in the wild, but we cant say with any certainty who is consuming it. At this point the only solution is to trawl through every projects POM and check to see if you have declared this library as a dependency. As I'm sure you can see this is going to make your day very unpleasant if you have any more than a handfull of projects, and if you've moved in the direction of microservices you would probably rather poke your eyes out with a pencil.
+
+== A potential solution
+
+As I mentioned earlier a Maven POM provides us with a way of describing what dependencies a project has. These are identified using a standard set of attributes; _groupId_, _artifactId_ and _version_. There are other attributes, but we will ignore them for now.
+
+* _groupId_ - a macro group or family of projects or archives to which a project belongs. For example, +org.hibernate+ and +org.richfaces.ui+
+* _artifactId_ - the unique identifier of the project among the projects sharing the same +groupId+. For example, +junit+, +hibernate-annotations+, and +richfaces-components-ui+.
+* _version_ - a version number.
+
+Lets turn our dependency tree into a graphical representation:
+
+image::http://site.kuali.org/maven/plugins/graph-maven-plugin/1.2.3/graph/direct/compile/flat.png[]
+
+Wouldn't it be good if we could store all of these project graphs in a single location where they could establish relationships with other projects?
+
+Well, we're already talking about graphs, so wouldn't a graph database be a good place to start?
+
+=== Describing the domain
