@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 9 Mar 2015 21:58:51 +0000</pubDate>
-    <lastBuildDate>Mon, 9 Mar 2015 21:58:51 +0000</lastBuildDate>
+    <pubDate>Mon, 9 Mar 2015 22:03:19 +0000</pubDate>
+    <lastBuildDate>Mon, 9 Mar 2015 22:03:19 +0000</lastBuildDate>
 
     <item>
       <title>Vagrant, Amazon EC2, Docker and Microservices pt1.</title>
@@ -184,7 +184,8 @@ end&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The source can be found in the repository below:&lt;/p&gt;
+&lt;p&gt;The source can be found in the repository below:
+&lt;a href=&quot;https://github.com/willis7/infra-n-app-automation&quot;&gt;https://github.com/willis7/infra-n-app-automation&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
