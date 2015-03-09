@@ -55,6 +55,216 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2015/03/vagrant-aws-docker-gradle.html"><h1>Vagrant, Amazon EC2, Docker and Microservices pt1.</h1></a>
+  			<p>09 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Microservices are all the rage at the moment, but from my experience they just move the bottleneck. Yes, the speed of development increases massively, but it does so at the cost of an increased dependency on the Build and Ops guys.</p>
+</div>
+<div class="paragraph">
+<p>This blog series is about using Docker to run a complete and fully functional microservice in the cloud using Vagrant, Amazon AWS and Docker. The goals are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Provisioning of the EC2 instance should be automated</p>
+</li>
+<li>
+<p>The microservices should run in their own containers</p>
+</li>
+<li>
+<p>The setup and configuration of the containers should be fully automated, no manual steps required</p>
+</li>
+<li>
+<p>Capture everything in a GitHub project.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vagrant">Vagrant</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vagrant is a nice way to manage our EC2 instances. We can use Vagrant to create and instance and provision the box to a state we desire.</p>
+</div>
+<div class="paragraph">
+<p>Once Vagrant is installed on your dev machine, to use the <code>AWS</code> provider type in Vagrant we will need to install the Vagrant AWS plugin. That can be done with the following command:</p>
+</div>
+<div class="paragraph">
+<p><code>vagrant plugin install vagrant-aws</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This took a while on my machine without a great deal of feedback. Just be patient, it will finish eventually.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>So, now lets create our project and the Vagrantfile. Run the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code># create a project folder
+$ mkdir infra-n-app-automation
+
+# change directory
+$ cd infra-n-app-automation
+
+# create the vagrant file
+$ vagrant init</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should get a message something similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint"><code>A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If we follow the Vagrant AWS plugin docs, we can see the basic Vagrantfile should look as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint ruby language-ruby"><code>Vagrant.configure("2") do |config|
+  config.vm.box = "dummy"
+
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = "YOUR KEY"
+    aws.secret_access_key = "YOUR SECRET KEY"
+    aws.session_token = "SESSION TOKEN"
+    aws.keypair_name = "KEYPAIR NAME"
+
+    aws.ami = "ami-7747d01e"
+
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "PATH TO YOUR PRIVATE KEY"
+  end
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The guide suggests putting your <code>access_key_id</code> and <code>secret_access_key</code> in the Vagrantfile, which is fine if you have a private repository, but as I plan on making this public I will set them using environment variables.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>export AWS_ACCESS_KEY="AKXXXXXXXXXXXXXXX"
+export AWS_SECRET_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After configuring my Security Group, selecting an AMI and sorting my private key, my Vagrantfile now looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint ruby language-ruby"><code># -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  # Box configuration
+  config.vm.box = "dummy"
+  config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+
+  # Share an additional folder to the guest VM.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Provider
+  config.vm.provider :aws do |aws, override|
+    aws.keypair_name = "dev"
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "~/.ssh/dev.pem"
+
+    aws.ami = "ami-234ecc54" #Ubuntu 12.04 LTS
+    aws.region = "eu-west-1"
+    aws.instance_type = "t2.micro"
+    aws.security_groups = ["WebServerSG"]
+
+    aws.tags = {
+      'Name' =&gt; 'Vagrant'
+    }
+  end
+
+  # Provisioning
+end</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gotchas">Gotchas</h3>
+<div class="paragraph">
+<p>I had a few challenges when I first started with Vagrant and AWS. They were:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Security Groups</strong> - You will noticed I used the <code>WebServerSG</code> group. I set this up as per the Amazon documentation found <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html#SecurityGroups-3">here</a>. Until I made this change I was hanging at the "<em>Waiting for SSH to become available&#8230;</em>" stage.</p>
+</li>
+<li>
+<p><strong>AMI</strong> - If you want to use the free tier I would recommend going through the Amazon "Launch Instance" wizard and recording the AMI id for your region and price plan. I found some of the online examples simply didn&#8217;t exist and were region specific.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.</p>
+</div>
+<div class="paragraph">
+<p>The source can be found in the repository below:</p>
+</div>
+</div>
+</div></p>
+  			<a href="blog/2015/03/weekly-links-2015-03-08.html"><h1>Weekly Links Roundup</h1></a>
+  			<p>08 March 2015</p>
+  			<p><div class="sect2">
+<h3 id="_vagrant">Vagrant</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.iheavy.com/2014/01/16/how-to-deploy-on-amazon-ec2-with-vagrant/">How to deploy on Amazon EC2 with Vagrant</a></p>
+</li>
+<li>
+<p><a href="http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/">Automated Deployment of AWS EC2 Instances With Vagrant and Puppet</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docker">Docker</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://phusion.github.io/baseimage-docker/">baseimage-docker</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_noteworthy">Noteworthy</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.devopsbookmarks.com/">devops bookmarks</a></p>
+</li>
+</ul>
+</div>
+</div></p>
   			<a href="blog/2015/03/graphing-build-dependencies.html"><h1>Dependency Management - Modeling Suppliers and Consumers pt.1</h1></a>
   			<p>07 March 2015</p>
   			<p><div class="sect1">

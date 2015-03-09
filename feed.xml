@@ -6,9 +6,231 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sat, 7 Mar 2015 17:55:00 +0000</pubDate>
-    <lastBuildDate>Sat, 7 Mar 2015 17:55:00 +0000</lastBuildDate>
+    <pubDate>Mon, 9 Mar 2015 21:58:51 +0000</pubDate>
+    <lastBuildDate>Mon, 9 Mar 2015 21:58:51 +0000</lastBuildDate>
 
+    <item>
+      <title>Vagrant, Amazon EC2, Docker and Microservices pt1.</title>
+      <link>https://willis7.github.io/blog/blog/2015/03/vagrant-aws-docker-gradle.html</link>
+      <pubDate>Mon, 9 Mar 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/03/vagrant-aws-docker-gradle.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Microservices are all the rage at the moment, but from my experience they just move the bottleneck. Yes, the speed of development increases massively, but it does so at the cost of an increased dependency on the Build and Ops guys.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This blog series is about using Docker to run a complete and fully functional microservice in the cloud using Vagrant, Amazon AWS and Docker. The goals are as follows:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Provisioning of the EC2 instance should be automated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The microservices should run in their own containers&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The setup and configuration of the containers should be fully automated, no manual steps required&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Capture everything in a GitHub project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_vagrant&quot;&gt;Vagrant&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Vagrant is a nice way to manage our EC2 instances. We can use Vagrant to create and instance and provision the box to a state we desire.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once Vagrant is installed on your dev machine, to use the &lt;code&gt;AWS&lt;/code&gt; provider type in Vagrant we will need to install the Vagrant AWS plugin. That can be done with the following command:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;vagrant plugin install vagrant-aws&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+This took a while on my machine without a great deal of feedback. Just be patient, it will finish eventually.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, now lets create our project and the Vagrantfile. Run the following commands:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;# create a project folder
+$ mkdir infra-n-app-automation
+
+# change directory
+$ cd infra-n-app-automation
+
+# create the vagrant file
+$ vagrant init&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should get a message something similar to:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If we follow the Vagrant AWS plugin docs, we can see the basic Vagrantfile should look as follows:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint ruby language-ruby&quot;&gt;&lt;code&gt;Vagrant.configure(&quot;2&quot;) do |config|
+  config.vm.box = &quot;dummy&quot;
+
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = &quot;YOUR KEY&quot;
+    aws.secret_access_key = &quot;YOUR SECRET KEY&quot;
+    aws.session_token = &quot;SESSION TOKEN&quot;
+    aws.keypair_name = &quot;KEYPAIR NAME&quot;
+
+    aws.ami = &quot;ami-7747d01e&quot;
+
+    override.ssh.username = &quot;ubuntu&quot;
+    override.ssh.private_key_path = &quot;PATH TO YOUR PRIVATE KEY&quot;
+  end
+end&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The guide suggests putting your &lt;code&gt;access_key_id&lt;/code&gt; and &lt;code&gt;secret_access_key&lt;/code&gt; in the Vagrantfile, which is fine if you have a private repository, but as I plan on making this public I will set them using environment variables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;export AWS_ACCESS_KEY=&quot;AKXXXXXXXXXXXXXXX&quot;
+export AWS_SECRET_KEY=&quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After configuring my Security Group, selecting an AMI and sorting my private key, my Vagrantfile now looks like:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint ruby language-ruby&quot;&gt;&lt;code&gt;# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  # Box configuration
+  config.vm.box = &quot;dummy&quot;
+  config.vm.box_url = &quot;https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box&quot;
+
+  # Share an additional folder to the guest VM.
+  # config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;
+
+  # Provider
+  config.vm.provider :aws do |aws, override|
+    aws.keypair_name = &quot;dev&quot;
+    override.ssh.username = &quot;ubuntu&quot;
+    override.ssh.private_key_path = &quot;~/.ssh/dev.pem&quot;
+
+    aws.ami = &quot;ami-234ecc54&quot; #Ubuntu 12.04 LTS
+    aws.region = &quot;eu-west-1&quot;
+    aws.instance_type = &quot;t2.micro&quot;
+    aws.security_groups = [&quot;WebServerSG&quot;]
+
+    aws.tags = {
+      &apos;Name&apos; =&amp;gt; &apos;Vagrant&apos;
+    }
+  end
+
+  # Provisioning
+end&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_gotchas&quot;&gt;Gotchas&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I had a few challenges when I first started with Vagrant and AWS. They were:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Security Groups&lt;/strong&gt; - You will noticed I used the &lt;code&gt;WebServerSG&lt;/code&gt; group. I set this up as per the Amazon documentation found &lt;a href=&quot;http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html#SecurityGroups-3&quot;&gt;here&lt;/a&gt;. Until I made this change I was hanging at the &quot;&lt;em&gt;Waiting for SSH to become available&amp;#8230;&lt;/em&gt;&quot; stage.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;AMI&lt;/strong&gt; - If you want to use the free tier I would recommend going through the Amazon &quot;Launch Instance&quot; wizard and recording the AMI id for your region and price plan. I found some of the online examples simply didn&amp;#8217;t exist and were region specific.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The source can be found in the repository below:&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
+    <item>
+      <title>Weekly Links Roundup</title>
+      <link>https://willis7.github.io/blog/blog/2015/03/weekly-links-2015-03-08.html</link>
+      <pubDate>Sun, 8 Mar 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/03/weekly-links-2015-03-08.html</guid>
+      	<description>
+	&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_vagrant&quot;&gt;Vagrant&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.iheavy.com/2014/01/16/how-to-deploy-on-amazon-ec2-with-vagrant/&quot;&gt;How to deploy on Amazon EC2 with Vagrant&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/&quot;&gt;Automated Deployment of AWS EC2 Instances With Vagrant and Puppet&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_docker&quot;&gt;Docker&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://phusion.github.io/baseimage-docker/&quot;&gt;baseimage-docker&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_noteworthy&quot;&gt;Noteworthy&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.devopsbookmarks.com/&quot;&gt;devops bookmarks&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Dependency Management - Modeling Suppliers and Consumers pt.1</title>
       <link>https://willis7.github.io/blog/blog/2015/03/graphing-build-dependencies.html</link>
