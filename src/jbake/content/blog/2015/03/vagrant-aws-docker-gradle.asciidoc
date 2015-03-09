@@ -127,3 +127,4 @@ I had a few challenges when I first started with Vagrant and AWS. They were:
 This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.
 
 The source can be found in the repository below:
+https://github.com/willis7/infra-n-app-automation
