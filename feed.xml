@@ -6,9 +6,28 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 9 Mar 2015 22:03:19 +0000</pubDate>
-    <lastBuildDate>Mon, 9 Mar 2015 22:03:19 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Mar 2015 19:35:10 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2015 19:35:10 +0000</lastBuildDate>
 
+    <item>
+      <title>Use Patterns, not Best Practices</title>
+      <link>https://willis7.github.io/blog/blog/2015/03/patterns-not-best-practice.html</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/03/patterns-not-best-practice.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_worth_a_look&quot;&gt;Worth a look&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I was just watching a PuppetLabsInc video on YouTube which had Michael Stankhe presenting &lt;a href=&quot;https://www.youtube.com/watch?v=TdAmAj3eaFI&quot;&gt;&quot;Getting Started with Puppet&quot;&lt;/a&gt;. Its a great presentation and really thought provoking, but the bit I like most is what he said about patterns.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;I use [the term] patterns, I dont use the words best practice because it implies I know all possible options and all your variables. I dont! Patterns are generally good ideas - sometimes they wont work for you, you may be in a situation where one of these patterns fails miserably.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Vagrant, Amazon EC2, Docker and Microservices pt1.</title>
       <link>https://willis7.github.io/blog/blog/2015/03/vagrant-aws-docker-gradle.html</link>
