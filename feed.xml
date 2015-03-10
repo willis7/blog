@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 10 Mar 2015 21:00:49 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Mar 2015 21:00:49 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Mar 2015 22:18:02 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2015 22:18:02 +0000</lastBuildDate>
 
     <item>
       <title>The GradleBuild task</title>
@@ -249,6 +249,14 @@ end&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The source can be found in the repository below:
 &lt;a href=&quot;https://github.com/willis7/infra-n-app-automation&quot;&gt;https://github.com/willis7/infra-n-app-automation&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_update_strong_edited_10_03_2015_strong&quot;&gt;Update! &lt;strong&gt;Edited: 10-03-2015&lt;/strong&gt;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Be very careful with your Amazon details on the web. I have provided a solution above for removing them from your source code. For a more in depth example see, &lt;a href=&quot;http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/&quot;&gt;here&lt;/a&gt;.Dont end up like this poor fella: &lt;a href=&quot;https://securosis.com/S=0/blog/my-500-cloud-security-screwup&quot;&gt;My $500 Cloud Security Screwup&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
