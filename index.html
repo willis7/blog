@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Willis7</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/asciidoctor.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet"><link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'><link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Sion's Blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="feed.xml">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+	<div class="page-header">
+		<h1>Blog</h1>
+	</div>
+  			<a href="2015/03/patterns-not-best-practice.html"><h1>Use Patterns, not Best Practices</h1></a>
+  			<p>10 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_worth_a_look">Worth a look</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I was just watching a PuppetLabsInc video on YouTube which had Michael Stankhe presenting <a href="https://www.youtube.com/watch?v=TdAmAj3eaFI">"Getting Started with Puppet"</a>. Its a great presentation and really thought provoking, but the bit I like most is what he said about patterns.</p>
+</div>
+<div class="paragraph">
+<p>"I use [the term] patterns, I dont use the words best practice because it implies I know all possible options and all your variables. I dont! Patterns are generally good ideas - sometimes they wont work for you, you may be in a situation where one of these patterns fails miserably."</p>
+</div>
+</div>
+</div></p>
+  			<a href="blog/2015/03/patterns-not-best-practice.html"><h1>Use Patterns, not Best Practices</h1></a>
+  			<p>10 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_worth_a_look">Worth a look</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I was just watching a PuppetLabsInc video on YouTube which had Michael Stankhe presenting <a href="https://www.youtube.com/watch?v=TdAmAj3eaFI">"Getting Started with Puppet"</a>. Its a great presentation and really thought provoking, but the bit I like most is what he said about patterns.</p>
+</div>
+<div class="paragraph">
+<p>"I use [the term] patterns, I dont use the words best practice because it implies I know all possible options and all your variables. I dont! Patterns are generally good ideas - sometimes they wont work for you, you may be in a situation where one of these patterns fails miserably."</p>
+</div>
+</div>
+</div></p>
+  			<a href="2015/03/vagrant-aws-docker-gradle.html"><h1>Vagrant, Amazon EC2, Docker and Microservices pt1.</h1></a>
+  			<p>09 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Microservices are all the rage at the moment, but from my experience they just move the bottleneck. Yes, the speed of development increases massively, but it does so at the cost of an increased dependency on the Build and Ops guys.</p>
+</div>
+<div class="paragraph">
+<p>This blog series is about using Docker to run a complete and fully functional microservice in the cloud using Vagrant, Amazon AWS and Docker. The goals are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Provisioning of the EC2 instance should be automated</p>
+</li>
+<li>
+<p>The microservices should run in their own containers</p>
+</li>
+<li>
+<p>The setup and configuration of the containers should be fully automated, no manual steps required</p>
+</li>
+<li>
+<p>Capture everything in a GitHub project.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vagrant">Vagrant</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vagrant is a nice way to manage our EC2 instances. We can use Vagrant to create and instance and provision the box to a state we desire.</p>
+</div>
+<div class="paragraph">
+<p>Once Vagrant is installed on your dev machine, to use the <code>AWS</code> provider type in Vagrant we will need to install the Vagrant AWS plugin. That can be done with the following command:</p>
+</div>
+<div class="paragraph">
+<p><code>vagrant plugin install vagrant-aws</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This took a while on my machine without a great deal of feedback. Just be patient, it will finish eventually.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>So, now lets create our project and the Vagrantfile. Run the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code># create a project folder
+$ mkdir infra-n-app-automation
+
+# change directory
+$ cd infra-n-app-automation
+
+# create the vagrant file
+$ vagrant init</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should get a message something similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint"><code>A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If we follow the Vagrant AWS plugin docs, we can see the basic Vagrantfile should look as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint ruby language-ruby"><code>Vagrant.configure("2") do |config|
+  config.vm.box = "dummy"
+
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = "YOUR KEY"
+    aws.secret_access_key = "YOUR SECRET KEY"
+    aws.session_token = "SESSION TOKEN"
+    aws.keypair_name = "KEYPAIR NAME"
+
+    aws.ami = "ami-7747d01e"
+
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "PATH TO YOUR PRIVATE KEY"
+  end
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The guide suggests putting your <code>access_key_id</code> and <code>secret_access_key</code> in the Vagrantfile, which is fine if you have a private repository, but as I plan on making this public I will set them using environment variables.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>export AWS_ACCESS_KEY="AKXXXXXXXXXXXXXXX"
+export AWS_SECRET_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After configuring my Security Group, selecting an AMI and sorting my private key, my Vagrantfile now looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint ruby language-ruby"><code># -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  # Box configuration
+  config.vm.box = "dummy"
+  config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+
+  # Share an additional folder to the guest VM.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Provider
+  config.vm.provider :aws do |aws, override|
+    aws.keypair_name = "dev"
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "~/.ssh/dev.pem"
+
+    aws.ami = "ami-234ecc54" #Ubuntu 12.04 LTS
+    aws.region = "eu-west-1"
+    aws.instance_type = "t2.micro"
+    aws.security_groups = ["WebServerSG"]
+
+    aws.tags = {
+      'Name' =&gt; 'Vagrant'
+    }
+  end
+
+  # Provisioning
+end</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gotchas">Gotchas</h3>
+<div class="paragraph">
+<p>I had a few challenges when I first started with Vagrant and AWS. They were:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Security Groups</strong> - You will noticed I used the <code>WebServerSG</code> group. I set this up as per the Amazon documentation found <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario3.html#SecurityGroups-3">here</a>. Until I made this change I was hanging at the "<em>Waiting for SSH to become available&#8230;</em>" stage.</p>
+</li>
+<li>
+<p><strong>AMI</strong> - If you want to use the free tier I would recommend going through the Amazon "Launch Instance" wizard and recording the AMI id for your region and price plan. I found some of the online examples simply didn&#8217;t exist and were region specific.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.</p>
+</div>
+<div class="paragraph">
+<p>The source can be found in the repository below:
+<a href="https://github.com/willis7/infra-n-app-automation">https://github.com/willis7/infra-n-app-automation</a></p>
+</div>
+</div>
+</div></p>
+  			<a href="2015/03/weekly-links-2015-03-08.html"><h1>Weekly Links Roundup</h1></a>
+  			<p>08 March 2015</p>
+  			<p><div class="sect2">
+<h3 id="_vagrant">Vagrant</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.iheavy.com/2014/01/16/how-to-deploy-on-amazon-ec2-with-vagrant/">How to deploy on Amazon EC2 with Vagrant</a></p>
+</li>
+<li>
+<p><a href="http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/">Automated Deployment of AWS EC2 Instances With Vagrant and Puppet</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docker">Docker</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://phusion.github.io/baseimage-docker/">baseimage-docker</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_noteworthy">Noteworthy</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.devopsbookmarks.com/">devops bookmarks</a></p>
+</li>
+</ul>
+</div>
+</div></p>
+  			<a href="2015/03/graphing-build-dependencies.html"><h1>Dependency Management - Modeling Suppliers and Consumers pt.1</h1></a>
+  			<p>07 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dependency management has come a long way over the past 10 years, but I believe it has some way to go before we can say the problem is solved.</p>
+</div>
+<div class="paragraph">
+<p>Consider the scenario where you have developed a library which inadvertently introduced a severe security vulnerability. Because your organisation believes in reuse it has been used in many different projects. The Maven POM (Project Object Model) does a good job in providing us with meta-data about the modules which are <em>suppliers</em> to a project, but it doesn&#8217;t capture information about who the <em>consumers</em> are.</p>
+</div>
+<div class="paragraph">
+<p>So, we have a dangerous library in the wild, but we cant say with any certainty who is consuming it. At this point the only solution is to trawl through every projects POM and look to see if you have declared this library as a dependency. This is going to make your day very unpleasant if you have more than a hand full of projects, and if you&#8217;ve moved in the direction of microservices then this is going to be hell!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_potential_solution">A potential solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As I mentioned earlier a Maven POM provides us with a way of describing what dependencies a project has. These are identified using a standard set of attributes; <em>groupId</em>, <em>artifactId</em> and <em>version</em>. There are other attributes, but we will ignore them for now.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>groupId</em> - a macro group or family of projects or archives to which a project belongs. For example, <code>org.hibernate</code> and <code>org.richfaces.ui</code></p>
+</li>
+<li>
+<p><em>artifactId</em> - the unique identifier of the project among the projects sharing the same <code>groupId</code>. For example, <code>junit</code>, <code>hibernate-annotations</code>, and <code>richfaces-components-ui</code>.</p>
+</li>
+<li>
+<p><em>version</em> - a version number.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Lets turn our dependency tree into a graphical representation:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="http://site.kuali.org/maven/plugins/graph-maven-plugin/1.2.3/graph/direct/compile/flat.png" alt="flat">
+</div>
+</div>
+<div class="paragraph">
+<p>Wouldn&#8217;t it be good if we could store all of these project graphs in a single location where they could establish relationships with other projects?</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;re already talking about graphs, so wouldn&#8217;t a graph database be a good place to start?</p>
+</div>
+<div class="sect2">
+<h3 id="_describing_the_domain">Describing the domain</h3>
+<div class="paragraph">
+<p>The underlying data model of a graph database is whats called the Property Graph data model. Essentially, it means that we will be storing our data in a graph database, and that we will be using vertices and edges(or nodes and relationships) to persist our data.</p>
+</div>
+<div class="paragraph">
+<p>This works really well for the problem we&#8217;re trying to solve because we&#8217;re talking about artifacts (nodes), and their relationships with each other artifacts. Lets look at some code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>@NodeEntity
+public class Artifact {
+
+    @GraphId Long id
+    String groupId
+    String artifactId
+    String version
+
+    @RelatedTo(type = "DEPENDS_ON", direction = Direction.OUTGOING)
+    public @Fetch Set&lt;Artifact&gt; dependencies
+
+
+    public void dependsOn(Artifact artifact) {
+        if ( !dependencies ) {
+            dependencies == new HashSet&lt;Artifact&gt;()
+        }
+        dependencies.add(artifact)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+I&#8217;m using Spring heavily here - this may look unfamiliar if you don&#8217;t know Spring.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here you can see I&#8217;ve constructed the node using the attributes I defined earlier. There is an id which is annotated with <code>@GraphId</code> that Neo4j uses to track the data, a groupId, artifactId and version. Inside this node entity I have also defined a <code>Set&lt;Artifact&gt;</code> of dependencies marked up as <code>@RelatedTo</code>. This means that every member of this set is expected to also exist as a separate <code>Artifact</code> node, and this node <code>DEPENDS_ON</code> them.</p>
+</div>
+<div class="paragraph">
+<p>So, this concludes part 1. Pt2 coming soon..</p>
+</div>
+</div>
+</div>
+</div></p>
+  			<a href="blog/2015/03/graphing-build-dependencies.html"><h1>Dependency Management - Modeling Suppliers and Consumers pt.1</h1></a>
+  			<p>07 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dependency management has come a long way over the past 10 years, but I believe it has some way to go before we can say the problem is solved.</p>
+</div>
+<div class="paragraph">
+<p>Consider the scenario where you have developed a library which inadvertently introduced a severe security vulnerability. Because your organisation believes in reuse it has been used in many different projects. The Maven POM (Project Object Model) does a good job in providing us with meta-data about the modules which are <em>suppliers</em> to a project, but it doesn&#8217;t capture information about who the <em>consumers</em> are.</p>
+</div>
+<div class="paragraph">
+<p>So, we have a dangerous library in the wild, but we cant say with any certainty who is consuming it. At this point the only solution is to trawl through every projects POM and look to see if you have declared this library as a dependency. This is going to make your day very unpleasant if you have more than a hand full of projects, and if you&#8217;ve moved in the direction of microservices then this is going to be hell!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_potential_solution">A potential solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As I mentioned earlier a Maven POM provides us with a way of describing what dependencies a project has. These are identified using a standard set of attributes; <em>groupId</em>, <em>artifactId</em> and <em>version</em>. There are other attributes, but we will ignore them for now.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>groupId</em> - a macro group or family of projects or archives to which a project belongs. For example, <code>org.hibernate</code> and <code>org.richfaces.ui</code></p>
+</li>
+<li>
+<p><em>artifactId</em> - the unique identifier of the project among the projects sharing the same <code>groupId</code>. For example, <code>junit</code>, <code>hibernate-annotations</code>, and <code>richfaces-components-ui</code>.</p>
+</li>
+<li>
+<p><em>version</em> - a version number.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Lets turn our dependency tree into a graphical representation:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="http://site.kuali.org/maven/plugins/graph-maven-plugin/1.2.3/graph/direct/compile/flat.png" alt="flat">
+</div>
+</div>
+<div class="paragraph">
+<p>Wouldn&#8217;t it be good if we could store all of these project graphs in a single location where they could establish relationships with other projects?</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;re already talking about graphs, so wouldn&#8217;t a graph database be a good place to start?</p>
+</div>
+<div class="sect2">
+<h3 id="_describing_the_domain">Describing the domain</h3>
+<div class="paragraph">
+<p>The underlying data model of a graph database is whats called the Property Graph data model. Essentially, it means that we will be storing our data in a graph database, and that we will be using vertices and edges(or nodes and relationships) to persist our data.</p>
+</div>
+<div class="paragraph">
+<p>This works really well for the problem we&#8217;re trying to solve because we&#8217;re talking about artifacts (nodes), and their relationships with each other artifacts. Lets look at some code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>@NodeEntity
+public class Artifact {
+
+    @GraphId Long id
+    String groupId
+    String artifactId
+    String version
+
+    @RelatedTo(type = "DEPENDS_ON", direction = Direction.OUTGOING)
+    public @Fetch Set&lt;Artifact&gt; dependencies
+
+
+    public void dependsOn(Artifact artifact) {
+        if ( !dependencies ) {
+            dependencies == new HashSet&lt;Artifact&gt;()
+        }
+        dependencies.add(artifact)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+I&#8217;m using Spring heavily here - this may look unfamiliar if you don&#8217;t know Spring.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here you can see I&#8217;ve constructed the node using the attributes I defined earlier. There is an id which is annotated with <code>@GraphId</code> that Neo4j uses to track the data, a groupId, artifactId and version. Inside this node entity I have also defined a <code>Set&lt;Artifact&gt;</code> of dependencies marked up as <code>@RelatedTo</code>. This means that every member of this set is expected to also exist as a separate <code>Artifact</code> node, and this node <code>DEPENDS_ON</code> them.</p>
+</div>
+<div class="paragraph">
+<p>So, this concludes part 1. Pt2 coming soon..</p>
+</div>
+</div>
+</div>
+</div></p>
+  			<a href="2015/02/mac-mongodb.html"><h1>Setup MongoDB on Mac Yosemite</h1></a>
+  			<p>17 February 2015</p>
+  			<p><div class="sect1">
+<h2 id="_install_mongodb_with_homebrew">Install MongoDB with Homebrew</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ brew install mongodb
+$ mkdir -p /data/db</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_set_permissions_for_the_data_directory">Set permissions for the data directory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ensure that user account running mongod has correct permissions for the directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ sudo chmod 0755 /data/db
+$ sudo chown $USER /data/db</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_mongodb">Run MongoDB!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>$ mongod</code></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Note:</strong> If you get something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>exception in initAndListen: 10309 Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied Is a mongod instance already running?, terminating</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It means that <code>/data/db</code> lacks required permission and ownership.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>ls -ld /data/db/</code></p>
+</div>
+<div class="paragraph">
+<p>Output should look like this (<code>willis7</code> is directory owner and <code>staff</code> is group to which willis7 belongs):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>drwxr-xr-x  7 willis7  staff  238 Aug  5 11:07 /data/db/</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+  			<a href="2015/02/read-pom-from-xml.html"><h1>Reading a POM from Gradle</h1></a>
+  			<p>17 February 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reading a Maven POM is Easy with Gradle and Groovy!</p>
+</div>
+<div class="paragraph">
+<p>The inspiration for this post came from the post here:
+<a href="https://stackoverflow.com/questions/11558157/reading-info-from-existing-pom-xml-file-using-gradle">Reading info from existing pom.xml file using Gradle?</a></p>
+</div>
+<div class="paragraph">
+<p>Naively I implemented the first solution which is given below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>defaultTasks 'hello'
+
+repositories {
+  mavenCentral()
+}
+configurations {
+  mavenAntTasks
+}
+dependencies {
+  mavenAntTasks 'org.apache.maven:maven-ant-tasks:2.1.3'
+}
+
+task hello &lt;&lt; {
+  ant.taskdef(
+    resource: 'org/apache/maven/artifact/ant/antlib.xml',
+    uri: 'antlib:org.apache.maven.artifact.ant',
+    classpath: configurations.mavenAntTasks.asPath)
+
+  ant.'antlib:org.apache.maven.artifact.ant:pom'(id:'mypom', file:'pom.xml')
+  println ant.references['mypom'].version
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, this solution did meet the original posters requirement. However, after running the hello task I was surprised to see
+a few libs being downloaded which didn&#8217;t feel slick.</p>
+</div>
+<div class="paragraph">
+<p>In true groovy fashion this could be achieved much more simply using the code below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>def pom = new XmlSlurper().parse(new File('pom.xml'))
+
+println 'my pom version ' + pom.version</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+  			<a href="2015/01/debugging-gradle-intellij.html"><h1>Debugging Gradle Plugins in Intellij</h1></a>
+  			<p>16 January 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ok, so this one had me stumped for a while and the solution was extremely simple.</p>
+</div>
+<div class="paragraph">
+<p>I read lots of information in the Gradle forums on this and it sent me in the wrong
+direction. Loads of articles saying to set certain flags/GRADLE_OPTS, which isnt necessary.</p>
+</div>
+<div class="paragraph">
+<p>So, in Intellij (im using version 14), set your breakpoint and from the Gradle Tool Window
+in <em>all tasks</em> area, right click the task and select the debug option from the context
+menu.</p>
+</div>
+<div class="paragraph">
+<p>Voila!</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.jetbrains.com/idea/help/working-with-gradle-tasks-in-gradle-tool-window.html">Intellij docs</a></p>
+</div>
+</div>
+</div></p>
+  			<a href="2014/new-year-new-tech.html"><h1>New Year, New Tech</h1></a>
+  			<p>31 December 2014</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>So, its the last day of 2014 and I&#8217;ve been thinking about some of the things I&#8217;ve achieved, and gave some thought
+to what I would like to achieve in 2015. It&#8217;s a well known fact that information  changes, so to stay current any self respecting IT
+professional should be constantly aspiring to learn new things, or better understand what they know already.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s my shortlist of subjects I would like to enhance my knowledge of in the new year:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>White hat hacking &amp; Penetration testing</p>
+</li>
+<li>
+<p>Sysadmin</p>
+</li>
+<li>
+<p>Meta programming</p>
+</li>
+<li>
+<p>Work through a few <a href="http://www.google.com/edu/tools-and-solutions/guide-for-technical-development/index.html">Google recommended subjects</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Lets discuss them in turn:</p>
+</div>
+<div class="paragraph">
+<div class="title">Hacking</div>
+<p>We all know how to test our code with unit, integration and exploratory testing. However, most people rarely pay much attention to
+the security elements. Ok, so most people can run static analysis with tools such as OWASP, but that still leaves the dynamic
+elements vulnerable. My aim is to understand some of the common ways of hacking software, and then use that knowledge to
+better inform some design and implementation patterns in my code.</p>
+</div>
+<div class="paragraph">
+<div class="title">Sysadmin</div>
+<p>I can navigate my way through a *nix system fairly easily, but I wouldn&#8217;t say im a pro. In fact, if someone took Google away
+I would be fairly stuck. My goal is to learn 15 of the most common commands and practice using them on a regular basis. This is
+very much how I learnt to use Git proficiently.</p>
+</div>
+<div class="paragraph">
+<div class="title">Meta programming</div>
+<p>An interesting concept that I&#8217;ve hear used a lot, but not ever taken a deep dive into. I&#8217;m aware of its benefits in creating
+DSL&#8217;s, so I would like to spend some time working with this cool feature. As I&#8217;m still having a lot of fun with Groovy
+I suspect that will be the language I use to explore <a href="http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations">Meta Programming</a>.</p>
+</div>
+<div class="paragraph">
+<div class="title">Work through a few Google recommendations</div>
+<p>I&#8217;m particularly interesting in the discreet mathematics. As a student I didn&#8217;t really enjoy maths, but as ive grown older (and wiser)
+I&#8217;ve gained an appreciation for maths. I guess I&#8217;ve come to accept that without maths, we probably wouldn&#8217;t have IT as we know it
+today. Its only fair that I give it the respect it deserves.</p>
+</div>
+<div class="paragraph">
+<p>So, thats my list of things I will be playing around with in 2015. I will try to blog what I&#8217;ve learnt and how I&#8217;ve understood the
+subject, and hopefully share my experience with other like-minded people.</p>
+</div>
+</div>
+</div></p>
+  			<a href="2014/jbake-blog.html"><h1>Blogging with JBake and GitHub Pages</h1></a>
+  			<p>30 December 2014</p>
+  			<p><div class="sect1">
+<h2 id="welcome_to_the_new_blog">Welcome to the new blog</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First of all a great thanks to <a href="http://robertmcintosh.me/">Mac</a> for steering me in the direction of JBake. His blog inspired
+me to spend the time and implement my own version.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m not going to spend a long time on this because there is a plethora of information online - rather I will add tips here
+and links to the resources I used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how_to_do_it">How to do it&#8230;.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s a list of tools you will need to follow along:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://gvmtool.net/">GVM the Groovy enVironment Manager</a></p>
+</li>
+<li>
+<p><a href="http://www.gradle.org/">Gradle</a></p>
+</li>
+<li>
+<p><a href="http://jbake.org/">JBake</a></p>
+</li>
+<li>
+<p><a href="http://git-scm.com/">Git</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use GVM to install Gradle and JBake latest. This will save you a lot of manual installation. Sorry Windows people,
+but you will have to install manually unless you use <a href="https://www.cygwin.com/">Cygwin</a> and GVM.</p>
+</div>
+<div class="paragraph">
+<p>Follow the instructions on the Git website to install Git.</p>
+</div>
+<div class="sect2">
+<h3 id="set_up_a_github_pages_project">Set up a GitHub Pages Project</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="title">Resource</div>
+<a href="https://help.github.com/articles/creating-project-pages-manually/">Github - Creating Project Pages manually</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new repository on GitHub - I called mine <em>blog</em>.</p>
+</li>
+<li>
+<p>Make a fresh clone</p>
+</li>
+<li>
+<p>Create a <code>gh-pages</code> branch - this <strong>must</strong> be an orphaned branch. Follow the steps in the link above.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the_rest">The rest &#8230;.</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="title">Resource</div>
+<a href="https://melix.github.io/blog/2014/02/hosting-jbake-github.html">Authoring your blog on GitHub with JBake and Gradle</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+As of writing this blog the <code>publish</code> task is now renamed to <code>publishGhPages</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To finish off this project I followed Cédric&#8217;s tutorial shown in the link above. However, rather than have 2 separate build
+files I opted for a single build script. I didn&#8217;t notice any of the classpath issues that Cédric has raised in his post.</p>
+</div>
+<div class="paragraph">
+<p>My build file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>buildscript {
+  repositories {
+      jcenter()
+  }
+
+  dependencies {
+    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
+
+    // optional, if you use asciidoctor markup
+    classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
+
+    // optional, if you use freemarker template engine
+    classpath 'org.freemarker:freemarker:2.3.19'
+
+    classpath 'org.ajoberstar:gradle-git:0.12.0'
+  }
+}
+
+apply plugin: 'me.champeau.jbake'
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+  repoUri = 'git@github.com:willis7/blog.git'
+  pages {
+    from(file('build/jbake')) {
+      into '.'
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+I&#8217;m using the SSH communication protocol with GitHub. I did try simple authentication, but had problems and switched to SSH.
+Theres a great <a href="https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git">tutorial by Atlassian</a> that guides you through the steps.
+Whilst it is for Bitbucket, the steps are relevant to GitHub.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>For the amount of blogging that I do, I guess it begs the question why I would switch from blogger. Well, the truth is it was
+more about the challenge and the learning. When I originally opened my blog it was intended
+to be a personal reminder of problems I encountered and the solutions I found. If someone got benefit from them, then that&#8217;s
+even better.</p>
+</div>
+<div class="paragraph">
+<p>So far I have enjoyed the flexibility brought through the use of JBake. I can play with many template engines, explore CSS and JS
+all within the confines of my own blog. Also, as I&#8217;m using Git if I stuff something up I can always revert back to a working version.</p>
+</div>
+<div class="paragraph">
+<p>A pleasurable experience in all. Easy to get started too!</p>
+</div>
+</div>
+</div>
+</div></p>
+  			<a href="2014/debugging-grails-intellij.html"><h1>Debugging Grails tests with Intellij</h1></a>
+  			<p>29 December 2014</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I was having some real headaches with debugging my unit tests today. With the introduction of forked execution came the breakage of Intellij debugging.</p>
+</div>
+<div class="paragraph">
+<p>There are some rather long winded ways of applying remote debuggers, and Ted does a great job of breaking the problem
+down and <a href="http://naleid.com/blog/2014/11/10/debugging-grails-forked-mode">offering a solution</a>. However, in my rather tiny
+Grails application I was happy to sacrifice the <a href="http://grails.io/post/43484836985/road-to-grails-2-3-forked-execution">benefits of forked execution</a> - at least for my tests.</p>
+</div>
+<div class="paragraph">
+<p>So, in BuildConfig.groovy I changed the following block:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>grails.project.fork = [
+    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>grails.project.fork = [
+    test: false,
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This change tells Grails that when we run the test configuration it shouldn&#8217;t run in forked mode - this is anything we would run using the <em>test-app</em> Grails command.</p>
+</div>
+</div>
+</div></p>
+  			<a href="2014/method-on-class-grails.html"><h1>Method on class [] was used outside of a Grails application.</h1></a>
+  			<p>11 December 2014</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Method on class [] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>java.lang.IllegalStateException: Method on class [com.willis.heimdall.Booking] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly.
+      at com.willis.heimdall.BookingIntegSpec.test saving a booking to the db(BookingIntegSpec.groovy:24)</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>I recently had this error on one of my simple examples. A real facepalm moment when I look back in retrospect but ho hum, the fix is nice and easy.</p>
+</div>
+<div class="paragraph">
+<p>Broken Code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>package com.willis.heimdall
+
+import org.joda.time.DateTime
+import spock.lang.Shared
+import spock.lang.Specification
+
+/**
+ * Integration tests for the Booking model
+ * @author Sion Williams
+ */
+class BookingIntegSpec extends Specification {
+    @Shared def today = new DateTime()
+    @Shared def todayPlusWeek = today.plusWeeks(1)
+
+    def 'test saving a booking to the db'() {
+        given: 'a new booking booking'
+        def booking = new Booking(name: 'my booking',
+                startTime: today.toDate(),
+                endTime: todayPlusWeek.toDate())
+
+        when: 'the booking is saved'
+        booking.save()
+
+        then: 'it can be successfully found in the database'
+        booking.errors.errorCount == 0
+        booking.id != null
+        Booking.get(booking.id).name == 'my booking'
+        Booking.get(booking.id).startTime == today.toDate()
+        Booking.get(booking.id).endTime == todayPlusWeek.toDate()
+
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Fixed Code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>package com.willis.heimdall
+
+import grails.test.mixin.TestFor
+import org.joda.time.DateTime
+import spock.lang.Shared
+import spock.lang.Specification
+
+/**
+ * Integration tests for the Booking model
+ * @author Sion Williams
+ */
+@TestFor(Booking)
+class BookingIntegSpec extends Specification {
+    @Shared def today = new DateTime()
+    @Shared def todayPlusWeek = today.plusWeeks(1)
+
+    def 'test saving a booking to the db'() {
+        given: 'a new booking booking'
+        def booking = new Booking(name: 'my booking',
+                startTime: today.toDate(),
+                endTime: todayPlusWeek.toDate())
+
+        when: 'the booking is saved'
+        booking.save()
+
+        then: 'it can be successfully found in the database'
+        booking.errors.errorCount == 0
+        booking.id != null
+        Booking.get(booking.id).name == 'my booking'
+        Booking.get(booking.id).startTime == today.toDate()
+        Booking.get(booking.id).endTime == todayPlusWeek.toDate()
+
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note here that we have told Grails what we are testing with the @TestFor() annotation so that it can set up the relevant mocks and stubs in the background.</p>
+</div>
+</div>
+</div></p>
+  			<a href="2013/gradle-output-to-log.html"><h1>Gradle Logging - Writing the build output to a file</h1></a>
+  			<p>17 October 2013</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This simple snippet adds 2 additional output listeners;
+<a href="https://en.wikipedia.org/wiki/Standard_streams">Standard Out and Standard Error</a>
+and pipes their output to a build log.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>def tstamp = new Date().format('yyyy-MM-dd_HH-mm-ss')
+def buildLogDir = "${rootDir}/build/logs"
+mkdir("${buildLogDir}")
+def buildLog = new File("${buildLogDir}/${tstamp}_buildLog.log")
+
+import org.gradle.logging.internal.*
+System.setProperty('org.gradle.color.error', 'RED')
+
+gradle.services.get(LoggingOutputInternal).addStandardOutputListener (new StandardOutputListener () {
+    void onOutput(CharSequence output) {
+        buildLog &lt;&lt; output
+    }
+})
+
+gradle.services.get(LoggingOutputInternal).addStandardErrorListener (new StandardOutputListener () {
+    void onOutput(CharSequence output) {
+        buildLog &lt;&lt; output
+    }
+})</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+  			<a href="2012/wlst-pack-unpack-domain.html"><h1>Weblogic/WLST - Packing and Unpacking a domain</h1></a>
+  			<p>19 May 2012</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you start working with distributed domains there will come a time when you need to pack the domain and unpack it in its distributed areas.</p>
+</div>
+<div class="paragraph">
+<p>Whether you create your domain via the GUI or by scripting, all you&#8217;re actually doing is creating a series of configuration files. At this point you&#8217;re not actually starting any servers - that comes later.</p>
+</div>
+<div class="paragraph">
+<p>Lets consider the following architecture:</p>
+</div>
+<div class="paragraph">
+<p>AdminServer = Machine A
+Managed01   = Machine B
+Managed02   = Machine C
+Cluster01   = Managed01, Managed02</p>
+</div>
+<div class="paragraph">
+<p>So, you run through the wizard and configured the domain above. You should now notice your domain has been created on Machine A, but if you log into Machine B or C nothing exists. This is where the need to Pack and UnPack comes in.</p>
+</div>
+<div class="paragraph">
+<p>To pack the domain run the following WLST script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint python language-python"><code># Create a template .jar of an existing domain
+# Open an existing domain
+
+readDomain(domainDirName)
+
+# Write the domain configuration information to a domain template
+writeTemplate(templateName)
+
+closeDomain(templateName)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This script opens the domain and extracts (as a jar) the configurations required
+for the servers that will reside on Machines B and C. It&#8217;s a skeleton configuration
+because the Admin server information will be excluded - a domain only ever has 1
+Admin server.</p>
+</div>
+<div class="paragraph">
+<p>Now that we have a templateName.jar we can send it to the machines that the rest
+of the domain will reside on and run the unpack script on each machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint python language-python"><code># unpack.py: convert from unpack command to wlst script
+# This script shows how to convert from the unpack command to a wlst script.
+# Note that the domain and template values, and the options to setOption, must be single-quoted
+# Specify the template that you want to use
+
+readTemplate('c:\wls9\user_templates\wlst_wls_template.jar')
+
+# If you specified the -username and -password option in the unpack command,
+# Specify them here. Otherwise, delete these lines`
+# Note that the domain_name field here is just the name of the domain, not the full path as specified in writeDomain below
+
+cd ('/Security/&lt;domain-name&gt;')
+create (&lt;user_name&gt;,'User')
+cd ('User/&lt;user_name&gt;')
+set ('Password',&lt;password&gt;)
+
+# analogous to unpack -java_home
+setOption('JavaHome',&lt;java_home&gt;)
+
+# analogous to unpack -server_start_mode
+setOption('ServerStartMode',&lt;server_start_mode&gt;)
+
+# analogous to unpack -app_dir
+setOption('AppDir',&lt;app_dir&gt;)
+
+# write the domain
+writeDomain(&lt;domain&gt;)
+
+closeTemplate()</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+	
+	<hr />
+	
+	<p>Older posts are available in the <a href="/archive.html">archive</a>.</p>
+
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+
+    <!-- **** DISQUS **** -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- **** END **** -->
+    
+  </body>
+</html>
