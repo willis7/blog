@@ -1,7 +1,5 @@
 buildscript {
   repositories {
-      mavenLocal()
-      mavenCentral()
       jcenter()
   }
 
@@ -26,4 +24,5 @@ task publish(type: GradleBuild) {
     tasks = ['publishGhPages']
 }
 
-publish.dependsOn jbake
+publish
+        .dependsOn jbake

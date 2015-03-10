@@ -15,7 +15,7 @@ apply plugin: 'org.ajoberstar.github-pages'
 githubPages {
     repoUri = 'git@github.com:willis7/blog.git'
     pages {
-        from(file('build/jbake')) {
+        from(file("../build/jbake")) {
             into '.'
         }
     }
