@@ -6,9 +6,53 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 10 Mar 2015 20:13:06 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Mar 2015 20:13:06 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Mar 2015 21:00:49 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2015 21:00:49 +0000</lastBuildDate>
 
+    <item>
+      <title>The GradleBuild task</title>
+      <link>https://willis7.github.io/blog/2015/03/GradleBuild-type-task.html</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">2015/03/GradleBuild-type-task.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_task_mytask_type_gradlebuild&quot;&gt;task myTask(type: GradleBuild) { }&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you have ever imported another build using &lt;code&gt;apply from: &quot;${rootDir}/gradle/publish.gradle&quot;&lt;/code&gt; then you will appreciate how its a little difficult to know exactly what has been applied to your build by said &lt;code&gt;apply&lt;/code&gt; action.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I often use this pattern when I want to clearly seperate the parts of my build. In my build scripts you may see something like:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;apply from: &quot;${rootDir}/gradle/sonar.gradle&quot;
+apply from: &quot;${rootDir}/gradle/acceptance-testing.gradle&quot;
+apply from: &quot;${rootDir}/gradle/deploy.gradle&quot;
+apply from: &quot;${rootDir}/gradle/publish.gradle&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is very clear and works very well, but sometimes I just don&amp;#8217;t need to be notified of all the tasks a build file imports.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In those cases a nicer solution may be to use the GradleBuild task type as shown below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;task publish(type: GradleBuild) {
+    buildFile = &quot;${rootDir}/gradle/publish.gradle&quot;
+    tasks = [&apos;publishGhPages&apos;]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I think this is really clear, and if you run &lt;code&gt;gradle tasks&lt;/code&gt; you should find all other tasks from that build file ommitted.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Use Patterns, not Best Practices</title>
       <link>https://willis7.github.io/blog/2015/03/patterns-not-best-practice.html</link>

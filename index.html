@@ -55,6 +55,44 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="2015/03/GradleBuild-type-task.html"><h1>The GradleBuild task</h1></a>
+  			<p>10 March 2015</p>
+  			<p><div class="sect1">
+<h2 id="_task_mytask_type_gradlebuild">task myTask(type: GradleBuild) { }</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have ever imported another build using <code>apply from: "${rootDir}/gradle/publish.gradle"</code> then you will appreciate how its a little difficult to know exactly what has been applied to your build by said <code>apply</code> action.</p>
+</div>
+<div class="paragraph">
+<p>I often use this pattern when I want to clearly seperate the parts of my build. In my build scripts you may see something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>apply from: "${rootDir}/gradle/sonar.gradle"
+apply from: "${rootDir}/gradle/acceptance-testing.gradle"
+apply from: "${rootDir}/gradle/deploy.gradle"
+apply from: "${rootDir}/gradle/publish.gradle"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is very clear and works very well, but sometimes I just don&#8217;t need to be notified of all the tasks a build file imports.</p>
+</div>
+<div class="paragraph">
+<p>In those cases a nicer solution may be to use the GradleBuild task type as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint groovy language-groovy"><code>task publish(type: GradleBuild) {
+    buildFile = "${rootDir}/gradle/publish.gradle"
+    tasks = ['publishGhPages']
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I think this is really clear, and if you run <code>gradle tasks</code> you should find all other tasks from that build file ommitted.</p>
+</div>
+</div>
+</div></p>
   			<a href="2015/03/patterns-not-best-practice.html"><h1>Use Patterns, not Best Practices</h1></a>
   			<p>10 March 2015</p>
   			<p><div class="sect1">
