@@ -6,33 +6,14 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 10 Mar 2015 20:09:42 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Mar 2015 20:09:42 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Mar 2015 20:13:06 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2015 20:13:06 +0000</lastBuildDate>
 
     <item>
       <title>Use Patterns, not Best Practices</title>
       <link>https://willis7.github.io/blog/2015/03/patterns-not-best-practice.html</link>
       <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">2015/03/patterns-not-best-practice.html</guid>
-      	<description>
-	&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_worth_a_look&quot;&gt;Worth a look&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I was just watching a PuppetLabsInc video on YouTube which had Michael Stankhe presenting &lt;a href=&quot;https://www.youtube.com/watch?v=TdAmAj3eaFI&quot;&gt;&quot;Getting Started with Puppet&quot;&lt;/a&gt;. Its a great presentation and really thought provoking, but the bit I like most is what he said about patterns.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;I use [the term] patterns, I dont use the words best practice because it implies I know all possible options and all your variables. I dont! Patterns are generally good ideas - sometimes they wont work for you, you may be in a situation where one of these patterns fails miserably.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Use Patterns, not Best Practices</title>
-      <link>https://willis7.github.io/blog/blog/2015/03/patterns-not-best-practice.html</link>
-      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/03/patterns-not-best-practice.html</guid>
       	<description>
 	&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_worth_a_look&quot;&gt;Worth a look&lt;/h2&gt;
@@ -275,113 +256,6 @@ end&lt;/code&gt;&lt;/pre&gt;
       <link>https://willis7.github.io/blog/2015/03/graphing-build-dependencies.html</link>
       <pubDate>Sat, 7 Mar 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">2015/03/graphing-build-dependencies.html</guid>
-      	<description>
-	&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Dependency management has come a long way over the past 10 years, but I believe it has some way to go before we can say the problem is solved.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Consider the scenario where you have developed a library which inadvertently introduced a severe security vulnerability. Because your organisation believes in reuse it has been used in many different projects. The Maven POM (Project Object Model) does a good job in providing us with meta-data about the modules which are &lt;em&gt;suppliers&lt;/em&gt; to a project, but it doesn&amp;#8217;t capture information about who the &lt;em&gt;consumers&lt;/em&gt; are.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So, we have a dangerous library in the wild, but we cant say with any certainty who is consuming it. At this point the only solution is to trawl through every projects POM and look to see if you have declared this library as a dependency. This is going to make your day very unpleasant if you have more than a hand full of projects, and if you&amp;#8217;ve moved in the direction of microservices then this is going to be hell!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_a_potential_solution&quot;&gt;A potential solution&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As I mentioned earlier a Maven POM provides us with a way of describing what dependencies a project has. These are identified using a standard set of attributes; &lt;em&gt;groupId&lt;/em&gt;, &lt;em&gt;artifactId&lt;/em&gt; and &lt;em&gt;version&lt;/em&gt;. There are other attributes, but we will ignore them for now.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;groupId&lt;/em&gt; - a macro group or family of projects or archives to which a project belongs. For example, &lt;code&gt;org.hibernate&lt;/code&gt; and &lt;code&gt;org.richfaces.ui&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;artifactId&lt;/em&gt; - the unique identifier of the project among the projects sharing the same &lt;code&gt;groupId&lt;/code&gt;. For example, &lt;code&gt;junit&lt;/code&gt;, &lt;code&gt;hibernate-annotations&lt;/code&gt;, and &lt;code&gt;richfaces-components-ui&lt;/code&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;version&lt;/em&gt; - a version number.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Lets turn our dependency tree into a graphical representation:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;http://site.kuali.org/maven/plugins/graph-maven-plugin/1.2.3/graph/direct/compile/flat.png&quot; alt=&quot;flat&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Wouldn&amp;#8217;t it be good if we could store all of these project graphs in a single location where they could establish relationships with other projects?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We&amp;#8217;re already talking about graphs, so wouldn&amp;#8217;t a graph database be a good place to start?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_describing_the_domain&quot;&gt;Describing the domain&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The underlying data model of a graph database is whats called the Property Graph data model. Essentially, it means that we will be storing our data in a graph database, and that we will be using vertices and edges(or nodes and relationships) to persist our data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This works really well for the problem we&amp;#8217;re trying to solve because we&amp;#8217;re talking about artifacts (nodes), and their relationships with each other artifacts. Lets look at some code:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint groovy language-groovy&quot;&gt;&lt;code&gt;@NodeEntity
-public class Artifact {
-
-    @GraphId Long id
-    String groupId
-    String artifactId
-    String version
-
-    @RelatedTo(type = &quot;DEPENDS_ON&quot;, direction = Direction.OUTGOING)
-    public @Fetch Set&amp;lt;Artifact&amp;gt; dependencies
-
-
-    public void dependsOn(Artifact artifact) {
-        if ( !dependencies ) {
-            dependencies == new HashSet&amp;lt;Artifact&amp;gt;()
-        }
-        dependencies.add(artifact)
-    }
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-I&amp;#8217;m using Spring heavily here - this may look unfamiliar if you don&amp;#8217;t know Spring.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here you can see I&amp;#8217;ve constructed the node using the attributes I defined earlier. There is an id which is annotated with &lt;code&gt;@GraphId&lt;/code&gt; that Neo4j uses to track the data, a groupId, artifactId and version. Inside this node entity I have also defined a &lt;code&gt;Set&amp;lt;Artifact&amp;gt;&lt;/code&gt; of dependencies marked up as &lt;code&gt;@RelatedTo&lt;/code&gt;. This means that every member of this set is expected to also exist as a separate &lt;code&gt;Artifact&lt;/code&gt; node, and this node &lt;code&gt;DEPENDS_ON&lt;/code&gt; them.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So, this concludes part 1. Pt2 coming soon..&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Dependency Management - Modeling Suppliers and Consumers pt.1</title>
-      <link>https://willis7.github.io/blog/blog/2015/03/graphing-build-dependencies.html</link>
-      <pubDate>Sat, 7 Mar 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/03/graphing-build-dependencies.html</guid>
       	<description>
 	&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_introduction&quot;&gt;Introduction&lt;/h2&gt;

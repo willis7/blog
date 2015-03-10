@@ -68,19 +68,6 @@
 </div>
 </div>
 </div></p>
-  			<a href="blog/2015/03/patterns-not-best-practice.html"><h1>Use Patterns, not Best Practices</h1></a>
-  			<p>10 March 2015</p>
-  			<p><div class="sect1">
-<h2 id="_worth_a_look">Worth a look</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>I was just watching a PuppetLabsInc video on YouTube which had Michael Stankhe presenting <a href="https://www.youtube.com/watch?v=TdAmAj3eaFI">"Getting Started with Puppet"</a>. Its a great presentation and really thought provoking, but the bit I like most is what he said about patterns.</p>
-</div>
-<div class="paragraph">
-<p>"I use [the term] patterns, I dont use the words best practice because it implies I know all possible options and all your variables. I dont! Patterns are generally good ideas - sometimes they wont work for you, you may be in a situation where one of these patterns fails miserably."</p>
-</div>
-</div>
-</div></p>
   			<a href="2015/03/vagrant-aws-docker-gradle.html"><h1>Vagrant, Amazon EC2, Docker and Microservices pt1.</h1></a>
   			<p>09 March 2015</p>
   			<p><div class="sect1">
@@ -293,107 +280,6 @@ end</code></pre>
 </div>
 </div></p>
   			<a href="2015/03/graphing-build-dependencies.html"><h1>Dependency Management - Modeling Suppliers and Consumers pt.1</h1></a>
-  			<p>07 March 2015</p>
-  			<p><div class="sect1">
-<h2 id="_introduction">Introduction</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Dependency management has come a long way over the past 10 years, but I believe it has some way to go before we can say the problem is solved.</p>
-</div>
-<div class="paragraph">
-<p>Consider the scenario where you have developed a library which inadvertently introduced a severe security vulnerability. Because your organisation believes in reuse it has been used in many different projects. The Maven POM (Project Object Model) does a good job in providing us with meta-data about the modules which are <em>suppliers</em> to a project, but it doesn&#8217;t capture information about who the <em>consumers</em> are.</p>
-</div>
-<div class="paragraph">
-<p>So, we have a dangerous library in the wild, but we cant say with any certainty who is consuming it. At this point the only solution is to trawl through every projects POM and look to see if you have declared this library as a dependency. This is going to make your day very unpleasant if you have more than a hand full of projects, and if you&#8217;ve moved in the direction of microservices then this is going to be hell!</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_a_potential_solution">A potential solution</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As I mentioned earlier a Maven POM provides us with a way of describing what dependencies a project has. These are identified using a standard set of attributes; <em>groupId</em>, <em>artifactId</em> and <em>version</em>. There are other attributes, but we will ignore them for now.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><em>groupId</em> - a macro group or family of projects or archives to which a project belongs. For example, <code>org.hibernate</code> and <code>org.richfaces.ui</code></p>
-</li>
-<li>
-<p><em>artifactId</em> - the unique identifier of the project among the projects sharing the same <code>groupId</code>. For example, <code>junit</code>, <code>hibernate-annotations</code>, and <code>richfaces-components-ui</code>.</p>
-</li>
-<li>
-<p><em>version</em> - a version number.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Lets turn our dependency tree into a graphical representation:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="http://site.kuali.org/maven/plugins/graph-maven-plugin/1.2.3/graph/direct/compile/flat.png" alt="flat">
-</div>
-</div>
-<div class="paragraph">
-<p>Wouldn&#8217;t it be good if we could store all of these project graphs in a single location where they could establish relationships with other projects?</p>
-</div>
-<div class="paragraph">
-<p>We&#8217;re already talking about graphs, so wouldn&#8217;t a graph database be a good place to start?</p>
-</div>
-<div class="sect2">
-<h3 id="_describing_the_domain">Describing the domain</h3>
-<div class="paragraph">
-<p>The underlying data model of a graph database is whats called the Property Graph data model. Essentially, it means that we will be storing our data in a graph database, and that we will be using vertices and edges(or nodes and relationships) to persist our data.</p>
-</div>
-<div class="paragraph">
-<p>This works really well for the problem we&#8217;re trying to solve because we&#8217;re talking about artifacts (nodes), and their relationships with each other artifacts. Lets look at some code:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint groovy language-groovy"><code>@NodeEntity
-public class Artifact {
-
-    @GraphId Long id
-    String groupId
-    String artifactId
-    String version
-
-    @RelatedTo(type = "DEPENDS_ON", direction = Direction.OUTGOING)
-    public @Fetch Set&lt;Artifact&gt; dependencies
-
-
-    public void dependsOn(Artifact artifact) {
-        if ( !dependencies ) {
-            dependencies == new HashSet&lt;Artifact&gt;()
-        }
-        dependencies.add(artifact)
-    }
-}</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-I&#8217;m using Spring heavily here - this may look unfamiliar if you don&#8217;t know Spring.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Here you can see I&#8217;ve constructed the node using the attributes I defined earlier. There is an id which is annotated with <code>@GraphId</code> that Neo4j uses to track the data, a groupId, artifactId and version. Inside this node entity I have also defined a <code>Set&lt;Artifact&gt;</code> of dependencies marked up as <code>@RelatedTo</code>. This means that every member of this set is expected to also exist as a separate <code>Artifact</code> node, and this node <code>DEPENDS_ON</code> them.</p>
-</div>
-<div class="paragraph">
-<p>So, this concludes part 1. Pt2 coming soon..</p>
-</div>
-</div>
-</div>
-</div></p>
-  			<a href="blog/2015/03/graphing-build-dependencies.html"><h1>Dependency Management - Modeling Suppliers and Consumers pt.1</h1></a>
   			<p>07 March 2015</p>
   			<p><div class="sect1">
 <h2 id="_introduction">Introduction</h2>
