@@ -128,3 +128,7 @@ This concludes part one of the tutorial. We can now create and control the lifec
 
 The source can be found in the repository below:
 https://github.com/willis7/infra-n-app-automation
+
+== Update! *Edited: 10-03-2015*
+
+Be very careful with your Amazon details on the web. I have provided a solution above for removing them from your source code. For a more in depth example see, http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/[here].Dont end up like this poor fella: https://securosis.com/S=0/blog/my-500-cloud-security-screwup[My $500 Cloud Security Screwup]
