@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 11 Mar 2015 17:54:53 +0000</pubDate>
-    <lastBuildDate>Wed, 11 Mar 2015 17:54:53 +0000</lastBuildDate>
+    <pubDate>Wed, 11 Mar 2015 19:58:30 +0000</pubDate>
+    <lastBuildDate>Wed, 11 Mar 2015 19:58:30 +0000</lastBuildDate>
 
     <item>
       <title>The GradleBuild task</title>
@@ -67,6 +67,129 @@ apply from: &quot;${rootDir}/gradle/publish.gradle&quot;&lt;/code&gt;&lt;/pre&gt
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&quot;I use [the term] patterns, I dont use the words best practice because it implies I know all possible options and all your variables. I dont! Patterns are generally good ideas - sometimes they wont work for you, you may be in a situation where one of these patterns fails miserably.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
+    <item>
+      <title>Vagrant, Amazon EC2, Docker and Microservices pt2.</title>
+      <link>https://willis7.github.io/blog/2015/03/vagrant-aws-docker-gradle-pt2.html</link>
+      <pubDate>Mon, 9 Mar 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">2015/03/vagrant-aws-docker-gradle-pt2.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_part_2&quot;&gt;Part 2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the first part of this tutorial, we showed how to use Vagrant to automate and manage an Amazon EC2 instance. We defined a simple Vagrantfile to specify certain attributes for an instance to run, and got it running using Vagrant&amp;#8217;s command line tools. In this part of the tutorial, we&amp;#8217;ll be using Puppet to define and automate the configuration details for our instance. This way, whenever we start up the environment with &lt;code&gt;vagrant up&lt;/code&gt;, it will be set up to run Docker without any additional manual configuration.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_docker_and_puppet&quot;&gt;Docker and Puppet&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The documentation for Docker is very good. Let&amp;#8217;s use that to drive the requirements of our puppet scripts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/installation/ubuntulinux/&quot;&gt;Installing Docker on Ubuntu Trusty 14.04 (LTS) (64-bit)&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lets start by setting up our puppet dev environment:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;# create a dir for puppet scripts from project root
+$ mkdir manifests
+
+# change directory
+$ cd manifests/
+
+# create a default manifest file for vagrant
+$ touch default.pp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;First thing we will want to do on our newly created instance is ensure the &lt;code&gt;apt-get&lt;/code&gt; package database is up to date. This can be achieved with the following block:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint ruby language-ruby&quot;&gt;&lt;code&gt;exec { &quot;apt-get update&quot;:
+  path =&amp;gt; &quot;/usr/bin&quot;,
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once thats complete we will want to install the docker package:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint ruby language-ruby&quot;&gt;&lt;code&gt;package { &quot;docker.io&quot;:
+  ensure  =&amp;gt; present,
+  require =&amp;gt; Exec[&quot;apt-get update&quot;],
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+here we have built a dependency in Puppet. We are saying we don&amp;#8217;t want to continue with this task until the execution of apt-get update is complete.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;At this point we have a bit of a chicken and egg situation. We want to run Puppet on our box to provision it, but Puppet isn&amp;#8217;t currently installed. We can use the shell provisioner to solve that initial problem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint ruby language-ruby&quot;&gt;&lt;code&gt;config.vm.provision :shell do |shell|
+   shell.inline = &quot;sudo apt-get install -y puppet-common&quot;
+ end&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+the &lt;code&gt;-y&lt;/code&gt; is a nice trick which we use to force a &lt;em&gt;yes&lt;/em&gt; when prompted if we want to continue.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since we have placed our puppet script in the default location all we need to do is add the following line to the Vagrantfile.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;config.vm.provision :puppet&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And thats it!! We can test this works by running &lt;code&gt;vagrant ssh&lt;/code&gt; followed by a &lt;code&gt;sudo docker run -i -t ubuntu /bin/bash&lt;/code&gt;. If all is well then you should see something similar to:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;Unable to find image &apos;ubuntu&apos; locally
+Pulling repository ubuntu
+2d24f826cb16: Download complete
+511136ea3c5a: Download complete
+fa4fd76b09ce: Download complete
+1c8294cc5160: Download complete
+117ee323aaa9: Download complete&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Resources:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.linux.com/learn/tutorials/696255-jumpstart-your-linux-development-environment-with-puppet-and-vagrant&quot;&gt;How to Jumpstart Linux Development with Puppet and Vagrant, Part Two&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
