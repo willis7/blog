@@ -48,9 +48,9 @@ package { "docker.io":
 }
 ----
 
-NOTE: here we have built a dependency in Puppet. We are saying we dont want to continue with this task until the execution of apt-get update is complete.
+NOTE: here we have built a dependency in Puppet. We are saying we don't want to continue with this task until the execution of apt-get update is complete.
 
-At this point we have a bit of a chicken and egg situation. We want to run Puppet on our box to provision it but Puppet isn't currently installed. We can use the shell provisioner to solve that initial problem.
+At this point we have a bit of a chicken and egg situation. We want to run Puppet on our box to provision it, but Puppet isn't currently installed. We can use the shell provisioner to solve that initial problem.
 
 [source, ruby]
 ----
