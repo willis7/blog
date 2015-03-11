@@ -114,6 +114,17 @@ Vagrant.configure(2) do |config|
 end
 ----
 
+We can now start the VM using the command:
+
+`vagrant up --provider=aws`
+
+and once the instance is available we can connect using:
+
+`vagrant ssh`
+
+finally, when we want to stop the instance we can run:
+
+`vagrant halt`
 
 === Gotchas
 
@@ -124,7 +135,7 @@ I had a few challenges when I first started with Vagrant and AWS. They were:
 
 == Conclusion
 
-This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.
+This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies.
 
 The source can be found in the repository below:
 https://github.com/willis7/infra-n-app-automation
