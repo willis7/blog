@@ -2,7 +2,7 @@
 Sion Williams
 2015-03-09
 :jbake-type: post
-:jbake-status: draft
+:jbake-status: published
 :jbake-tags: vagrant, ec2, aws, docker, microservice, gradle
 
 == Part 2
