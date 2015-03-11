@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 10 Mar 2015 22:18:02 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Mar 2015 22:18:02 +0000</lastBuildDate>
+    <pubDate>Wed, 11 Mar 2015 17:54:53 +0000</pubDate>
+    <lastBuildDate>Wed, 11 Mar 2015 17:54:53 +0000</lastBuildDate>
 
     <item>
       <title>The GradleBuild task</title>
@@ -102,6 +102,12 @@ apply from: &quot;${rootDir}/gradle/publish.gradle&quot;&lt;/code&gt;&lt;/pre&gt
 &lt;p&gt;Capture everything in a GitHub project.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The idea here is if we can automate the whole process, then we will quickly see the real benefits of using a microservice based architecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lets introduce the tools&amp;#8230;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -208,7 +214,7 @@ Vagrant.configure(2) do |config|
     override.ssh.username = &quot;ubuntu&quot;
     override.ssh.private_key_path = &quot;~/.ssh/dev.pem&quot;
 
-    aws.ami = &quot;ami-234ecc54&quot; #Ubuntu 12.04 LTS
+    aws.ami = &quot;ami-234ecc54&quot; #Ubuntu 14.04.1 LTS
     aws.region = &quot;eu-west-1&quot;
     aws.instance_type = &quot;t2.micro&quot;
     aws.security_groups = [&quot;WebServerSG&quot;]
@@ -221,6 +227,24 @@ Vagrant.configure(2) do |config|
   # Provisioning
 end&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We can now start the VM using the command:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;vagrant up --provider=aws&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;and once the instance is available we can connect using:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;vagrant ssh&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;finally, when we want to stop the instance we can run:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;vagrant halt&lt;/code&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;_gotchas&quot;&gt;Gotchas&lt;/h3&gt;
@@ -244,7 +268,7 @@ end&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.&lt;/p&gt;
+&lt;p&gt;This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The source can be found in the repository below:

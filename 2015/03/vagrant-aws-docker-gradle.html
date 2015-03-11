@@ -96,6 +96,12 @@
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The idea here is if we can automate the whole process, then we will quickly see the real benefits of using a microservice based architecture.</p>
+</div>
+<div class="paragraph">
+<p>Lets introduce the tools&#8230;</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -201,7 +207,7 @@ Vagrant.configure(2) do |config|
     override.ssh.username = "ubuntu"
     override.ssh.private_key_path = "~/.ssh/dev.pem"
 
-    aws.ami = "ami-234ecc54" #Ubuntu 12.04 LTS
+    aws.ami = "ami-234ecc54" #Ubuntu 14.04.1 LTS
     aws.region = "eu-west-1"
     aws.instance_type = "t2.micro"
     aws.security_groups = ["WebServerSG"]
@@ -214,6 +220,24 @@ Vagrant.configure(2) do |config|
   # Provisioning
 end</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>We can now start the VM using the command:</p>
+</div>
+<div class="paragraph">
+<p><code>vagrant up --provider=aws</code></p>
+</div>
+<div class="paragraph">
+<p>and once the instance is available we can connect using:</p>
+</div>
+<div class="paragraph">
+<p><code>vagrant ssh</code></p>
+</div>
+<div class="paragraph">
+<p>finally, when we want to stop the instance we can run:</p>
+</div>
+<div class="paragraph">
+<p><code>vagrant halt</code></p>
 </div>
 <div class="sect2">
 <h3 id="_gotchas">Gotchas</h3>
@@ -237,7 +261,7 @@ end</code></pre>
 <h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies on the instance.</p>
+<p>This concludes part one of the tutorial. We can now create and control the lifecycle of an EC2 instance, and in part two we will install Docker and any other dependencies.</p>
 </div>
 <div class="paragraph">
 <p>The source can be found in the repository below:
