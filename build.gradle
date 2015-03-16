@@ -7,6 +7,7 @@ buildscript {
     classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
     classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
     classpath 'org.freemarker:freemarker:2.3.19'
+    classpath 'org.ajoberstar:gradle-git:0.12.0'
   }
 }
 
@@ -19,10 +20,15 @@ jbake {
     configuration['render.tag'] = 'true'
 }
 
-task publish(type: GradleBuild) {
-    buildFile = "${rootDir}/gradle/publish.gradle"
-    tasks = ['publishGhPages']
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+    repoUri = 'git@github.com:willis7/blog.git'
+    pages {
+        from(file('build/jbake')) {
+            into '.'
+        }
+    }
 }
 
-publish
-        .dependsOn jbake
+publishGhPages.dependsOn jbake
