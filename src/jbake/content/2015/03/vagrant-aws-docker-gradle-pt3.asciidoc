@@ -1,6 +1,6 @@
 = Vagrant, Amazon EC2, Docker and Microservices pt3.
 Sion Williams
-2015-03-09
+2015-03-16
 :jbake-type: post
 :jbake-status: published
 :jbake-tags: vagrant, ec2, aws, docker, microservice, gradle, ansible
