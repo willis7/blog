@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Vagrant, Amazon EC2, Docker and Microservices pt3.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet"><link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'><link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Sion's Blog</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	
+	<div class="page-header">
+		<h1>Vagrant, Amazon EC2, Docker and Microservices pt3.</h1>
+	</div>
+
+	<p><em>09 March 2015</em></p>
+	<p><em>Tags: </em>
+		<a href="/blog/tags/vagrant.html">vagrant</a>
+	</em>
+		<a href="/blog/tags/ec2.html"> ec2</a>
+	</em>
+		<a href="/blog/tags/aws.html"> aws</a>
+	</em>
+		<a href="/blog/tags/docker.html"> docker</a>
+	</em>
+		<a href="/blog/tags/microservice.html"> microservice</a>
+	</em>
+		<a href="/blog/tags/gradle.html"> gradle</a>
+	</em>
+		<a href="/blog/tags/ansible.html"> ansible</a>
+	</p>
+
+	<p><div class="sect1">
+<h2 id="_part_3_a_bit_of_back_pedaling">Part 3 - a bit of back pedaling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After thinking about the <em>hack</em> I put in to get Puppet installed on the box before I could use it, I felt a little dirty, and decided that maybe Puppet wasn&#8217;t the best decision after-all.</p>
+</div>
+<div class="paragraph">
+<p>So, the problem is that I need an agent installed before I can provision my box, but I&#8217;m trying to automate the provisioning - catch 22. Here&#8217;s where Ansible has really stepped up.</p>
+</div>
+<div class="paragraph">
+<p>I suppose we could have continued using the shell provisioner, but Adam Brett raises a good point on this:</p>
+</div>
+<div class="paragraph">
+<p><em>"Why not just use Bash scripts, then? Ansible has an edge over Bash scripts because of its simplicity. Ansible just uses a list of tasks to run in YAML2 format. Ansible also comes with idempotency out of the box. That means you can run the same operation numerous times, and the output will remain consistent (i.e. it won&#8217;t do something twice unless you ask it to). You can write Bash scripts this way, but it requires quite a bit more overhead."</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ansible">Ansible</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There is one small caveat with Ansible - we have to install it on the machines that will be running the Vagrant script (Ansible call it the control machine). I&#8217;ve added a link to the docs down in the resources section.</p>
+</div>
+<div class="paragraph">
+<p>Puppet has manifests, Chef has cookbooks and Ansible has playbooks.</p>
+</div>
+<div class="paragraph">
+<p>As we did with Puppet, lets create an Ansible dev environment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code># create a dir for ansible scripts from project root
+$ mkdir playbooks
+
+# change directory
+$ cd playbooks/
+
+# create a playbook file for vagrant
+$ touch playbook.yml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tasks are the same as before, and in the <code>playbook.yml</code> we express them in the following way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>---
+- hosts: all
+  sudo: true
+  tasks:
+      - name: update apt cache
+        apt: update_cache=yes
+      - name: install docker.io
+        apt: name=docker.io state=present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we need to tell Vagrant that we want to use the Ansible provisioner. Replace the previous provisioner blocks with the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint ruby language-ruby"><code>config.vm.provision :ansible do |ansible|
+    ansible.playbook = "playbooks/playbook.yml"
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can now run <code>vagrant up --provider=aws</code> and you should see Ansible being used for the provisioning:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>PLAY [all] ********************************************************************
+
+GATHERING FACTS ***************************************************************
+ok: [default]
+
+TASK: [update apt cache] ******************************************************
+ok: [default]
+
+TASK: [install docker.io] *****************************************************
+changed: [default]
+
+PLAY RECAP ********************************************************************
+default                    : ok=3    changed=1    unreachable=0    failed=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Again, we can ssh into the box and prove Docker is installed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code># ssh into our instance
+vagrant ssh
+
+# run docker
+sudo docker run -i -t ubuntu /bin/bash</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_refactoring_for_reusability">Refactoring for reusability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the moment our playbook is really simple, so you could argue its not worth refactoring, but as this is a learning exercise I think its worth going through the motions.</p>
+</div>
+<div class="sect2">
+<h3 id="_separation_of_concerns">Separation of concerns</h3>
+<div class="paragraph">
+<p>The Wikipedia definition goes as follows:</p>
+</div>
+<div class="paragraph">
+<p><em>"In computer science, separation of concerns (SoC) is a design principle for separating a computer program into distinct sections, such that each section addresses a separate concern. A concern is a set of information that affects the code of a computer program."</em></p>
+</div>
+<div class="paragraph">
+<p>The Docker installation task is a nice place to add some separation. Whilst the task is very simple at the moment, it could get more complex over time. Keeping it separate makes the code easier to read, but also sets us up to be able to reuse in the future.</p>
+</div>
+<div class="paragraph">
+<p>Start by adding a new directory called <code>tasks</code> and then add a file for docker, <code>docker.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>---
+- name: install docker.io
+  apt: name=docker.io state=present</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Don&#8217;t get caught out by whitespaces. They will fail your build.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, we need to update our playbook to include this new file. Change your <code>playbook.yml</code> file to match the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>---
+- hosts: all
+  sudo: true
+  tasks:
+      - name: update apt cache
+        apt: update_cache=yes
+      - include: tasks/docker.yml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Test this new configuration by running <code>vagrant destroy</code> followed by <code>vagrant up --provider=aws</code> again. Everything should work exactly as before.</p>
+</div>
+<div class="paragraph">
+<p>Resources:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://docs.ansible.com/intro_installation.html">Installing the Control Machine</a>
+<a href="https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html">Vagrant &amp; Ansible Quickstart Tutorial</a></p>
+</div>
+</div>
+</div>
+</div></p>
+
+	<!-- **** DISQUS **** -->
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+		var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
+
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	<!-- **** END **** -->
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+
+    <!-- **** DISQUS **** -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- **** END **** -->
+    
+  </body>
+</html>
