@@ -22,6 +22,8 @@ Lets introduce the tools...
 
 == Vagrant
 
+image::http://www.erikaheidi.com/theme/fatcatz/images/vagrant/logo_vagrant.png[vagrant logo]
+
 Vagrant is a nice way to manage our EC2 instances. We can use Vagrant to create and instance and provision the box to a state we desire.
 
 Once Vagrant is installed on your dev machine, to use the `AWS` provider type in Vagrant we will need to install the Vagrant AWS plugin. That can be done with the following command:
