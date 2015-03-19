@@ -77,6 +77,8 @@ $ curl localhost:8080
 Greetings from Spring Boot!
 ----
 
+At this point we could get Ansible to do all of these steps, but as this is a learning exercise its nice to go through the motions. If you were to add these steps, then we refactored earlier, so these would sit nicely in the Docker Playbook.
+
 == Conclusion
 
 This tutorial series has been a whistle stop tour through a few different tools and technologies. Whilst the example was extremely simple, hopefully you can see how this could be applied to a Continuous Delivery pipeline for on demand test environments. For the small effort up front in writing your scripts (which in this case were super simple!), you can save costs from not having "always on" environments that aren't being used. Also, because we provisioned the environments using a coded format, we can rest assured the environments are the same every time - we also get the luxury of being able to version control our scripts as a result.
