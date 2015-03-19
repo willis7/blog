@@ -5,16 +5,16 @@ Sion Williams
 :jbake-status: published
 :jbake-tags: vagrant, docker, devops
 
-=== Vagrant
+== Vagrant
 
 * http://www.iheavy.com/2014/01/16/how-to-deploy-on-amazon-ec2-with-vagrant/[How to deploy on Amazon EC2 with Vagrant]
 
 * http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/[Automated Deployment of AWS EC2 Instances With Vagrant and Puppet]
 
-=== Docker
+== Docker
 
 * https://phusion.github.io/baseimage-docker/[baseimage-docker]
 
-=== Noteworthy
+== Noteworthy
 
 * http://www.devopsbookmarks.com/[devops bookmarks]

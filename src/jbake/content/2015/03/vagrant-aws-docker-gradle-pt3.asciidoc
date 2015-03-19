@@ -128,5 +128,5 @@ Test this new configuration by running +vagrant destroy+ followed by +vagrant up
 
 Resources:
 
-http://docs.ansible.com/intro_installation.html[Installing the Control Machine]
-https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html[Vagrant & Ansible Quickstart Tutorial]
+* http://docs.ansible.com/intro_installation.html[Installing the Control Machine]
+* https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html[Vagrant & Ansible Quickstart Tutorial]

@@ -80,4 +80,4 @@ fa4fd76b09ce: Download complete
 
 Resources:
 
-http://www.linux.com/learn/tutorials/696255-jumpstart-your-linux-development-environment-with-puppet-and-vagrant[How to Jumpstart Linux Development with Puppet and Vagrant, Part Two]
+* http://www.linux.com/learn/tutorials/696255-jumpstart-your-linux-development-environment-with-puppet-and-vagrant[How to Jumpstart Linux Development with Puppet and Vagrant, Part Two]
