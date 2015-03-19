@@ -6,8 +6,8 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 19 Mar 2015 15:41:17 +0000</pubDate>
-    <lastBuildDate>Thu, 19 Mar 2015 15:41:17 +0000</lastBuildDate>
+    <pubDate>Thu, 19 Mar 2015 15:54:30 +0000</pubDate>
+    <lastBuildDate>Thu, 19 Mar 2015 15:54:30 +0000</lastBuildDate>
 
     <item>
       <title>Vagrant, Amazon EC2, Docker and Microservices pt4.</title>
@@ -18,6 +18,11 @@
 	&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_the_microservice&quot;&gt;The Microservice&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;http://2.bp.blogspot.com/-qHSsmfROS1c/UoFWwtez3iI/AAAAAAAAG0M/nxKwNEOaRSs/s1600/logo-spring-io.png&quot; alt=&quot;spring logo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For this tutorial I&amp;#8217;m going to use a spring boot application that will help us prove the concepts behind this tutorial. There are loads of microservice frameworks to chose from, but for this tutorial we will use Spring Boot. Maybe in the future I will look at trying out some other popular frameworks. Links to the Spring guide are given at the bottom of this tutorial.&lt;/p&gt;
 &lt;/div&gt;
@@ -29,6 +34,11 @@
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_docker&quot;&gt;Docker&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;http://blog.docker.com/wp-content/uploads/2013/08/KuDr42X_ITXghJhSInDZekNEF0jLt3NeVxtRye3tqco.png&quot; alt=&quot;docker logo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;When I first started writing this article I had plans of going through a 101 for Docker. Since then I have found a fantastic youtube video called &lt;a href=&quot;https://www.youtube.com/watch?v=4W2YY-qBla0&amp;amp;index=21&amp;amp;list=PLDF29927F90450C06&quot;&gt;Docker 101: Dockerizing Your Infrastructure&lt;/a&gt; and I just don&amp;#8217;t think I can add anything to that excellent tutorial. So, rather than going from the foundations I have decided to assume you have watched that video.&lt;/p&gt;
 &lt;/div&gt;
@@ -161,6 +171,11 @@ Greetings from Spring Boot!&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_ansible&quot;&gt;Ansible&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://p5.zdassets.com/hc/settings_assets/339894/200015136/VmrvDMp3h3CbF4N3W74Ekg-ansible2014_logo_black_tagline.png&quot; alt=&quot;ansible logo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There is one small caveat with Ansible - we have to install it on the machines that will be running the Vagrant script (Ansible call it the control machine). I&amp;#8217;ve added a link to the docs down in the resources section.&lt;/p&gt;
 &lt;/div&gt;
@@ -547,6 +562,11 @@ fa4fd76b09ce: Download complete
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;_vagrant&quot;&gt;Vagrant&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;http://www.erikaheidi.com/theme/fatcatz/images/vagrant/logo_vagrant.png&quot; alt=&quot;vagrant logo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Vagrant is a nice way to manage our EC2 instances. We can use Vagrant to create and instance and provision the box to a state we desire.&lt;/p&gt;
 &lt;/div&gt;
