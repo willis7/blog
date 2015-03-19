@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Vagrant, Amazon EC2, Docker and Microservices pt2.</title>
+    <title>Vagrant, Amazon EC2, Docker and Microservices pt4.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -53,10 +53,10 @@
     <div class="container">
 
 	<div class="page-header">
-		<h1>Vagrant, Amazon EC2, Docker and Microservices pt2.</h1>
+		<h1>Vagrant, Amazon EC2, Docker and Microservices pt4.</h1>
 	</div>
 
-	<p><em>09 March 2015</em></p>
+	<p><em>17 March 2015</em></p>
 	<p><em>Tags: </em>
 		<a href="/blog/tags/vagrant.html">vagrant</a>
 	</em>
@@ -69,114 +69,114 @@
 		<a href="/blog/tags/microservice.html"> microservice</a>
 	</em>
 		<a href="/blog/tags/gradle.html"> gradle</a>
+	</em>
+		<a href="/blog/tags/ansible.html"> ansible</a>
+	</em>
+		<a href="/blog/tags/spring.html"> spring</a>
 	</p>
 
 	<p><div class="sect1">
-<h2 id="_part_2">Part 2</h2>
+<h2 id="_the_microservice">The Microservice</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the first part of this tutorial, we showed how to use Vagrant to automate and manage an Amazon EC2 instance. We defined a simple Vagrantfile to specify certain attributes for an instance to run, and got it running using Vagrant&#8217;s command line tools. In this part of the tutorial, we&#8217;ll be using Puppet to define and automate the configuration details for our instance. This way, whenever we start up the environment with <code>vagrant up</code>, it will be set up to run Docker without any additional manual configuration.</p>
+<p>For this tutorial I&#8217;m going to use a spring boot application that will help us prove the concepts behind this tutorial. There are loads of microservice frameworks to chose from, but for this tutorial we will use Spring Boot. Maybe in the future I will look at trying out some other popular frameworks. Links to the Spring guide are given at the bottom of this tutorial.</p>
+</div>
+<div class="paragraph">
+<p>At this point we could cheat and do everything in Gradle. Here&#8217;s a <a href="http://thediscoblog.com/blog/2014/06/13/docker-containers-with-gradle-in-4-steps/">handy tutorial</a> showing how to perform your build and docker run using Gradle.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_docker_and_puppet">Docker and Puppet</h2>
+<h2 id="_docker">Docker</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The documentation for Docker is very good. Let&#8217;s use that to drive the requirements of our puppet scripts:</p>
+<p>When I first started writing this article I had plans of going through a 101 for Docker. Since then I have found a fantastic youtube video called <a href="https://www.youtube.com/watch?v=4W2YY-qBla0&amp;index=21&amp;list=PLDF29927F90450C06">Docker 101: Dockerizing Your Infrastructure</a> and I just don&#8217;t think I can add anything to that excellent tutorial. So, rather than going from the foundations I have decided to assume you have watched that video.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://docs.docker.com/installation/ubuntulinux/">Installing Docker on Ubuntu Trusty 14.04 (LTS) (64-bit)</a></p>
+<p>Now that we can do the basics with Docker lets start setting our requirements for the container. First, we need java installed so that we can start our microservice. Then, it would be good if we could do some monitoring once the service is started. This is especially important if we plan on running this in a production setting. For that reason we&#8217;re going to move away from ubuntu images, and use an extended version of the <a href="https://phusion.github.io/baseimage-docker/">baseimage</a> image by Phusion. The image is called <a href="https://registry.hub.docker.com/u/flurdy/oracle-java7/">flurdy/oracle-java7</a> and if we look at the Dockerfile for <code>flurdy/oracle-java7</code> we can see this image is using <code>phusion/baseimage:latest</code> and bootstrapping it with Java.</p>
 </div>
 <div class="paragraph">
-<p>Lets start by setting up our puppet dev environment:</p>
+<p>Lets start building our <code>Dockerfile</code>. I have created mine in <code>${projectDir}/app/docker</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>FROM flurdy/oracle-java7:latest
+MAINTAINER willis7
+EXPOSE 8080
+ADD build/libs/gs-spring-boot-0.1.0.jar /opt/msvc/gs-spring-boot.jar
+CMD java -jar /opt/msvc/gs-spring-boot.jar</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the FROM keyword Docker will first look for the image locally, then look to the public repo if it doesn&#8217;t find it.</p>
+</div>
+<div class="paragraph">
+<p>MAINTAINER simply tells the reader who the author of this Dockerfile is.</p>
+</div>
+<div class="paragraph">
+<p>EXPOSE tells Docker that a port is to be exposed when the container is started. Now, lets add our build output to the container; we do that using the ADD keyword:</p>
+</div>
+<div class="paragraph">
+<p>The ADD instruction basically takes a &lt;src&gt; and &lt;dest&gt;. If the &lt;dest&gt; path doesn&#8217;t exist, it is created along with the missing directories along its path.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we need to tell Docker what command should be run when the container is executed. We do that with the CMD keyword.</p>
+</div>
+<div class="paragraph">
+<p>And thats it!</p>
+</div>
+<div class="paragraph">
+<p>If you look in my github repository you will find 2 helper scripts - one to build the image and the second to run it.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker-build.sh
+docker-run.sh</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lets run through the steps:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint bash language-bash"><code># create a dir for puppet scripts from project root
-$ mkdir manifests
+<pre class="prettyprint bash language-bash"><code># Build the source code and run unit tests
+$ cd app
+$ .gradlew clean build
 
-# change directory
-$ cd manifests/
+# Create and provision a VM
+$ cd ..
+$ vagrant up
 
-# create a default manifest file for vagrant
-$ touch default.pp</code></pre>
+# ssh into the box
+$ vagrant ssh
+
+# cd to the docker scripts
+$ cd /vagrant/docker/
+
+# docker build
+$ . docker-build.sh
+
+# docker run
+$ . docker-run.sh
+
+# test service running
+$ curl localhost:8080
+Greetings from Spring Boot!</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>First thing we will want to do on our newly created instance is ensure the <code>apt-get</code> package database is up to date. This can be achieved with the following block:</p>
+<p>At this point we could get Ansible to do all of these steps, but as this is a learning exercise its nice to go through the motions. If you were to add these steps, then we refactored earlier, so these would sit nicely in the Docker Playbook.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint ruby language-ruby"><code>exec { "apt-get update":
-  path =&gt; "/usr/bin",
-}</code></pre>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial series has been a whistle stop tour through a few different tools and technologies. Whilst the example was extremely simple, hopefully you can see how this could be applied to a Continuous Delivery pipeline for on demand test environments. For the small effort up front in writing your scripts (which in this case were super simple!), you can save costs from not having "always on" environments that aren&#8217;t being used. Also, because we provisioned the environments using a coded format, we can rest assured the environments are the same every time - we also get the luxury of being able to version control our scripts as a result.</p>
 </div>
 <div class="paragraph">
-<p>Once thats complete we will want to install the docker package:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint ruby language-ruby"><code>package { "docker.io":
-  ensure  =&gt; present,
-  require =&gt; Exec["apt-get update"],
-}</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-here we have built a dependency in Puppet. We are saying we don&#8217;t want to continue with this task until the execution of apt-get update is complete.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>At this point we have a bit of a chicken and egg situation. We want to run Puppet on our box to provision it, but Puppet isn&#8217;t currently installed. We can use the shell provisioner to solve that initial problem.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint ruby language-ruby"><code>config.vm.provision :shell do |shell|
-   shell.inline = "sudo apt-get install -y puppet-common"
- end</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-the <code>-y</code> is a nice trick which we use to force a <em>yes</em> when prompted if we want to continue.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Since we have placed our puppet script in the default location all we need to do is add the following line to the Vagrantfile.</p>
-</div>
-<div class="paragraph">
-<p><code>config.vm.provision :puppet</code></p>
-</div>
-<div class="paragraph">
-<p>And thats it!! We can test this works by running <code>vagrant ssh</code> followed by a <code>sudo docker run -i -t ubuntu /bin/bash</code>. If all is well then you should see something similar to:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint bash language-bash"><code>Unable to find image 'ubuntu' locally
-Pulling repository ubuntu
-2d24f826cb16: Download complete
-511136ea3c5a: Download complete
-fa4fd76b09ce: Download complete
-1c8294cc5160: Download complete
-117ee323aaa9: Download complete</code></pre>
-</div>
+<p>If you have any questions or would like me to clarify anything in these tutorials then please feel free to add a comment below.</p>
 </div>
 <div class="paragraph">
 <p>Resources:</p>
@@ -184,7 +184,10 @@ fa4fd76b09ce: Download complete
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://www.linux.com/learn/tutorials/696255-jumpstart-your-linux-development-environment-with-puppet-and-vagrant">How to Jumpstart Linux Development with Puppet and Vagrant, Part Two</a></p>
+<p><a href="https://spring.io/guides/gs/spring-boot/">Building an Application with Spring Boot</a></p>
+</li>
+<li>
+<p><a href="http://plainoldobjects.com/2014/11/16/deploying-spring-boot-based-microservices-with-docker/">Deploying Spring Boot-based microservices with Docker</a></p>
 </li>
 </ul>
 </div>
