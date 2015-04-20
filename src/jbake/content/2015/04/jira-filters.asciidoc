@@ -1,0 +1,31 @@
+= My favourite Jira filters
+Sion Williams
+2015-04-20
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: jira
+
+== Anything Assigned to Me Personally
+
+This filter picks up any items that slip through the built in filter.
+
+[source]
+----
+assignee = currentUser() AND status != Closed ORDER BY Rank ASC
+----
+
+== Assignee Was!
+
+Gives you a list of tickets you have beed an assignee on since the start of the month.
+
+[source]
+----
+assignee was currentUser() after startOfMonth()
+----
+
+== Recently Resolved
+
+[source]
+----
+project = <project_name> AND issuetype = Bug AND resolved >= -7d
+----
