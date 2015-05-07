@@ -1,34 +1,31 @@
 buildscript {
-  repositories {
-      jcenter()
-  }
+    repositories {
+        jcenter()
+    }
 
-  dependencies {
-    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
-    classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
-    classpath 'org.freemarker:freemarker:2.3.19'
-    classpath 'org.ajoberstar:gradle-git:0.12.0'
-  }
+    dependencies {
+        // jbake deps
+        classpath "me.champeau.gradle:jbake-gradle-plugin:0.2"
+        classpath "org.freemarker:freemarker:2.3.22"
+        classpath "org.asciidoctor:asciidoctor-java-integration:0.1.4"
+        classpath "org.pegdown:pegdown:1.5.0"
+        // github pages
+        classpath 'org.ajoberstar:gradle-git:1.1.0'
+    }
 }
 
 apply plugin: 'me.champeau.jbake'
-
-jbake {
-    input = file('src/jbake')
-    output = file('build/jbake')
-    clearCache = true
-    configuration['render.tag'] = 'true'
-}
-
 apply plugin: 'org.ajoberstar.github-pages'
 
 githubPages {
     repoUri = 'git@github.com:willis7/blog.git'
     pages {
-        from(file('build/jbake')) {
-            into '.'
-        }
+        from 'build/jbake'
     }
 }
 
 publishGhPages.dependsOn jbake
+
+task clean(type: Delete) {
+    delete "build/jbake"
+}

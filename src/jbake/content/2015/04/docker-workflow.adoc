@@ -1,0 +1,13 @@
+= Docker Workflow
+Sion Williams
+2015-04-26
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: docker
+
+== Lets talk workflows
+If you read my series titled https://willis7.github.io/blog/2015/03/vagrant-aws-docker-gradle.html[Vagrant, Amazon EC2, Docker and Microservices], you may have got to the end and shuddered. If you haven't read it, let me explain; I was compiling the microservice on the desktop then using Vagrant to copy the package and the Dockerfile to the cloud instance to perform the docker build. From there I performed a docker run and tested the microservice. Quite clunky and slow - especially the copy accross.
+
+After some thought, and a better understanding of Docker I settled on the following workflow which I uploaded to http://www.slideshare.net/SionWilliams1/docker-workflow[www.slideshare.net].
+
+In this slideshow you will see much more thought has gone into the process. We begin in a development environment where a developer can build and run his docker image until he/she is satisfied. Once happy they push to their version control system of choice. At this point the build machine fires into action. It should validate the code and build the image. You may run a series of tests against the container at this point. Once satisfied you would push to your Docker repository (I use Bintray, but you can use DockerHub). The image is then ready to be consumed in other environments.
