@@ -6,9 +6,38 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 25 May 2015 13:35:46 +0100</pubDate>
-    <lastBuildDate>Mon, 25 May 2015 13:35:46 +0100</lastBuildDate>
+    <pubDate>Mon, 25 May 2015 14:11:55 +0100</pubDate>
+    <lastBuildDate>Mon, 25 May 2015 14:11:55 +0100</lastBuildDate>
 
+    <item>
+      <title>Mobile development - User-Agent Switcher</title>
+      <link>https://willis7.github.io/blog/2015/05/mobile-dev-user-agent-switcher.html</link>
+      <pubDate>Sun, 24 May 2015 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">2015/05/mobile-dev-user-agent-switcher.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_problem&quot;&gt;Problem&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When adding mobile support to your application you want to quickly see what it looks like on multiple devices. While we can use a real mobile device to test things out, this process can be quite cumbersome and time consuming. It&amp;#8217;s best to find a plugin for our browser in order to switch the user agent settings automatically.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_solution&quot;&gt;Solution&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Whilst this is by no means the only solution, I have found it to be the easiest. &lt;a href=&quot;https://chrome.google.com/webstore/detail/user-agent-switcher/ffhkkpnppgnfaobgihpdblnhmmbodake?hl=en&quot;&gt;User-Agent Switcher&lt;/a&gt; is an extension for the Chrome browser which lets you easily switch a browser to a mobile device.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://lh5.googleusercontent.com/akjAvGzlGS_NhaAX-CCibzvpVaYSrFtAdIk7k3qt3LKclUDVis4anLkYKRHvV34gCgnJM7qxvg=s1280-h800-e365-rw&quot; alt=&quot;User-Agent Switcher Context Menu&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Docker Workflow</title>
       <link>https://willis7.github.io/blog/2015/04/docker-workflow.html</link>
