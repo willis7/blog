@@ -9,6 +9,7 @@
   		<#if (post.status == "published")>
   			<a href="${post.uri}"><h1><#escape x as x?xml>${post.title}</#escape></h1></a>
   			<p>${post.date?string("dd MMMM yyyy")}</p>
+  			<a href="${post.uri}#disqus_thread  data-disqus-identifier="${post.uri}"> ${config.disqus_no_comments} </a>
   			<p>${post.body}</p>
   		</#if>
   	</#list>

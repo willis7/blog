@@ -13,11 +13,16 @@
 
 	<p>${content.body}</p>
 
+	<hr>
+
 	<!-- **** DISQUS **** -->
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">
 		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 		var disqus_shortname = '${config.disqus_username}'; // required: replace example with your forum shortname
+		var disqus_identifier = '${content.uri}';
+    	var disqus_title = "${content.title}";
+    	var disqus_url = '${config.site_host}${content.uri}';
 
 		/* * * DON'T EDIT BELOW THIS LINE * * */
 		(function() {
@@ -42,7 +47,5 @@
 
 	</script>
 	<!-- **** END **** -->
-
-	<hr>
 
 <#include "footer.ftl">

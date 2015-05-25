@@ -27,5 +27,5 @@ githubPages {
 publishGhPages.dependsOn jbake
 
 task clean(type: Delete) {
-    delete "build/jbake"
+    delete 'build'
 }
