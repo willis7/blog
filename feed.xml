@@ -6,9 +6,31 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 7 May 2015 20:07:14 +0100</pubDate>
-    <lastBuildDate>Thu, 7 May 2015 20:07:14 +0100</lastBuildDate>
+    <pubDate>Mon, 25 May 2015 13:26:50 +0100</pubDate>
+    <lastBuildDate>Mon, 25 May 2015 13:26:50 +0100</lastBuildDate>
 
+    <item>
+      <title>SoapUI Gradle Plugin</title>
+      <link>https://willis7.github.io/blog/2015/05/soapui-gradle-plugin.html</link>
+      <pubDate>Thu, 14 May 2015 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">2015/05/soapui-gradle-plugin.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_this_one_nearly_ended_me&quot;&gt;This one nearly ended me!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For quite some time I have been trying to write a Gradle plugin for the popular SoapUI tool. On first impressions I thought this was a simple port from the Maven version. Oh how I was wrong!!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;First there was the wonderful classpath hell scenario that Renato Athaydes described in his [blog](&lt;a href=&quot;https://sites.google.com/a/athaydes.com/renato-athaydes/posts/writingagradlepluginforsoapui&quot;&gt;https://sites.google.com/a/athaydes.com/renato-athaydes/posts/writingagradlepluginforsoapui&lt;/a&gt;). This was a really painful exercise and I&amp;#8217;m surprised given the number of issues that this wasn&amp;#8217;t an urgent issue for SmartBear. However, with some perseverence and a big thanks to the information Renato captured I was able to close this one out.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Then came the [logging issues..](&lt;a href=&quot;https://discuss.gradle.org/t/classpath-hell-soapui-and-gradle-api-logging-conflicts/8830&quot;&gt;https://discuss.gradle.org/t/classpath-hell-soapui-and-gradle-api-logging-conflicts/8830&lt;/a&gt;). turns out there was a conflict between Gradle and SoapUI.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Docker Workflow</title>
       <link>https://willis7.github.io/blog/2015/04/docker-workflow.html</link>
