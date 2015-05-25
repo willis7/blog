@@ -1,0 +1,16 @@
+= Mobile development - User-Agent Switcher
+Sion Williams
+2015-05-24
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: mobile
+
+== Problem
+
+When adding mobile support to your application you want to quickly see what it looks like on multiple devices. While we can use a real mobile device to test things out, this process can be quite cumbersome and time consuming. It's best to find a plugin for our browser in order to switch the user agent settings automatically.
+
+== Solution
+
+Whilst this is by no means the only solution, I have found it to be the easiest. https://chrome.google.com/webstore/detail/user-agent-switcher/ffhkkpnppgnfaobgihpdblnhmmbodake?hl=en[User-Agent Switcher] is an extension for the Chrome browser which lets you easily switch a browser to a mobile device.
+
+image::https://lh5.googleusercontent.com/akjAvGzlGS_NhaAX-CCibzvpVaYSrFtAdIk7k3qt3LKclUDVis4anLkYKRHvV34gCgnJM7qxvg=s1280-h800-e365-rw[User-Agent Switcher Context Menu]
