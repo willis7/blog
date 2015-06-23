@@ -1,0 +1,31 @@
+= Securing your browsing with Chrome, Tor and Docker
+Sion Williams
+2015-06-23
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: tor, docker, chrome, security
+
+== Introduction
+
+This tutorial was prompted by recent blog posts; http://martinfowler.com/articles/tor-for-technologists.html[Tor for technologists] and https://blog.jessfraz.com/post/routing-traffic-through-tor-docker-container/[How to Route Traffic through a Tor Docker container]. 
+
+The idea here is that we use a docker container to run the Tor client, then using Chrome and Proxy Switch Omega we can switch between secure and non-secure browsing easily.
+
+== How to do it ..
+
+* Step 1: Run https://registry.hub.docker.com/u/nagev/tor/[Nagev's] Tor container `$ docker run -d --name tor_instance -p 9150:9150 nagev/tor`
+
+* Step 2: Install https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif[Proxy Switch Omega] in your Chrome browser.
+
+* Step 3: Follow the tutorial for an explanation on how to create your own profile. Click "+ new profile", set name to "Tor" and check type is set to "Proxy Profile".
+
+image:https://cdn.pbrd.co/images/1r6gA4dE.png["new profile", width=128, link="https://cdn.pbrd.co/images/1r6gA4dE.png"]
+
+
+* Step 4: In the Tor profile settings screen set protocol to SOCKS5, then insert the IP of your docker container and the port you forwarded. Note* you may need to run `$ boot2docker ip` to get the IP if using boot2docker.
+
+image:https://cdn.pbrd.co/images/1r6z4pM1.png["profile config", width=128, link="https://cdn.pbrd.co/images/1r6z4pM1.png"]
+
+* Step 5: Check its all working https://check.torproject.org/
+
+image:https://cdn.pbrd.co/images/1r75L8Yu.png["tor success", width=128, link="https://cdn.pbrd.co/images/1r75L8Yu.png"]
