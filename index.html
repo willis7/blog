@@ -57,6 +57,64 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="2015/06/tor-docker-chrome.html"><h1>Securing your browsing with Chrome, Tor and Docker</h1></a>
+  			<p>23 June 2015</p>
+  			<a href="2015/06/tor-docker-chrome.html#disqus_thread  data-disqus-identifier="2015/06/tor-docker-chrome.html"> 0 Comments </a>
+  			<p><div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial was prompted by recent blog posts; <a href="http://martinfowler.com/articles/tor-for-technologists.html">Tor for technologists</a> and <a href="https://blog.jessfraz.com/post/routing-traffic-through-tor-docker-container/">How to Route Traffic through a Tor Docker container</a>.</p>
+</div>
+<div class="paragraph">
+<p>The idea here is that we use a docker container to run the Tor client, then using Chrome and Proxy Switch Omega we can switch between secure and non-secure browsing easily.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_do_it">How to do it ..</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Step 1: Run <a href="https://registry.hub.docker.com/u/nagev/tor/">Nagev&#8217;s</a> Tor container <code>$ docker run -d --name tor_instance -p 9150:9150 nagev/tor</code></p>
+</li>
+<li>
+<p>Step 2: Install <a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy Switch Omega</a> in your Chrome browser.</p>
+</li>
+<li>
+<p>Step 3: Follow the tutorial for an explanation on how to create your own profile. Click "+ new profile", set name to "Tor" and check type is set to "Proxy Profile".</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><a class="image" href="https://cdn.pbrd.co/images/1r6gA4dE.png"><img src="https://cdn.pbrd.co/images/1r6gA4dE.png" alt="new profile" width="128"></a></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Step 4: In the Tor profile settings screen set protocol to SOCKS5, then insert the IP of your docker container and the port you forwarded. Note* you may need to run <code>$ boot2docker ip</code> to get the IP if using boot2docker.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><a class="image" href="https://cdn.pbrd.co/images/1r6z4pM1.png"><img src="https://cdn.pbrd.co/images/1r6z4pM1.png" alt="profile config" width="128"></a></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Step 5: Switch the profile to Tor using the button on toolbar. Press the button and click "Tor" from the dropdown.</p>
+</li>
+<li>
+<p>Step 6: Check its all working <a href="https://check.torproject.org/">https://check.torproject.org/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><a class="image" href="https://cdn.pbrd.co/images/1r75L8Yu.png"><img src="https://cdn.pbrd.co/images/1r75L8Yu.png" alt="tor success" width="128"></a></span></p>
+</div>
+</div>
+</div></p>
   			<a href="2015/05/mobile-dev-user-agent-switcher.html"><h1>Mobile development - User-Agent Switcher</h1></a>
   			<p>24 May 2015</p>
   			<a href="2015/05/mobile-dev-user-agent-switcher.html#disqus_thread  data-disqus-identifier="2015/05/mobile-dev-user-agent-switcher.html"> 0 Comments </a>

@@ -6,9 +6,72 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 25 May 2015 14:11:55 +0100</pubDate>
-    <lastBuildDate>Mon, 25 May 2015 14:11:55 +0100</lastBuildDate>
+    <pubDate>Tue, 23 Jun 2015 13:40:08 +0100</pubDate>
+    <lastBuildDate>Tue, 23 Jun 2015 13:40:08 +0100</lastBuildDate>
 
+    <item>
+      <title>Securing your browsing with Chrome, Tor and Docker</title>
+      <link>https://willis7.github.io/blog/2015/06/tor-docker-chrome.html</link>
+      <pubDate>Tue, 23 Jun 2015 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">2015/06/tor-docker-chrome.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial was prompted by recent blog posts; &lt;a href=&quot;http://martinfowler.com/articles/tor-for-technologists.html&quot;&gt;Tor for technologists&lt;/a&gt; and &lt;a href=&quot;https://blog.jessfraz.com/post/routing-traffic-through-tor-docker-container/&quot;&gt;How to Route Traffic through a Tor Docker container&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The idea here is that we use a docker container to run the Tor client, then using Chrome and Proxy Switch Omega we can switch between secure and non-secure browsing easily.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_how_to_do_it&quot;&gt;How to do it ..&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Step 1: Run &lt;a href=&quot;https://registry.hub.docker.com/u/nagev/tor/&quot;&gt;Nagev&amp;#8217;s&lt;/a&gt; Tor container &lt;code&gt;$ docker run -d --name tor_instance -p 9150:9150 nagev/tor&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Step 2: Install &lt;a href=&quot;https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif&quot;&gt;Proxy Switch Omega&lt;/a&gt; in your Chrome browser.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Step 3: Follow the tutorial for an explanation on how to create your own profile. Click &quot;+ new profile&quot;, set name to &quot;Tor&quot; and check type is set to &quot;Proxy Profile&quot;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;span class=&quot;image&quot;&gt;&lt;a class=&quot;image&quot; href=&quot;https://cdn.pbrd.co/images/1r6gA4dE.png&quot;&gt;&lt;img src=&quot;https://cdn.pbrd.co/images/1r6gA4dE.png&quot; alt=&quot;new profile&quot; width=&quot;128&quot;&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Step 4: In the Tor profile settings screen set protocol to SOCKS5, then insert the IP of your docker container and the port you forwarded. Note* you may need to run &lt;code&gt;$ boot2docker ip&lt;/code&gt; to get the IP if using boot2docker.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;span class=&quot;image&quot;&gt;&lt;a class=&quot;image&quot; href=&quot;https://cdn.pbrd.co/images/1r6z4pM1.png&quot;&gt;&lt;img src=&quot;https://cdn.pbrd.co/images/1r6z4pM1.png&quot; alt=&quot;profile config&quot; width=&quot;128&quot;&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Step 5: Switch the profile to Tor using the button on toolbar. Press the button and click &quot;Tor&quot; from the dropdown.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Step 6: Check its all working &lt;a href=&quot;https://check.torproject.org/&quot;&gt;https://check.torproject.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;span class=&quot;image&quot;&gt;&lt;a class=&quot;image&quot; href=&quot;https://cdn.pbrd.co/images/1r75L8Yu.png&quot;&gt;&lt;img src=&quot;https://cdn.pbrd.co/images/1r75L8Yu.png&quot; alt=&quot;tor success&quot; width=&quot;128&quot;&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Mobile development - User-Agent Switcher</title>
       <link>https://willis7.github.io/blog/2015/05/mobile-dev-user-agent-switcher.html</link>
