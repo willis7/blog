@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>DevOps - Cut then measure</title>
+    <title>CD test environments with Docker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -55,18 +55,27 @@
     <div class="container">
 
 	<div class="page-header">
-		<h1>DevOps - Cut then measure</h1>
+		<h1>CD test environments with Docker</h1>
 	</div>
 
-	<p><em>04 June 2015</em></p>
+	<p><em>07 July 2015</em></p>
 	<p><em>Tags: </em>
-		<a href="/blog/tags/devops.html">devops</a>
+		<a href="/blog/tags/continuous-delivery.html">continuous-delivery</a>
+	</em>
+		<a href="/blog/tags/cd.html"> cd</a>
+	</em>
+		<a href="/blog/tags/automation.html"> automation</a>
+	</em>
+		<a href="/blog/tags/docker.html"> docker</a>
 	</p>
 
 	<p><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since I was a young lad I&#8217;ve always had an interest in any form of DIY. My dad would let me play with the tools, and he would show me all the tips and tricks. One of the greatest pieces of advice he gave me was to measure twice, and cut once. I thought this was the best bit of advice I ever had until DevOps come along and turned that on its head.</p>
+<p>Automation code is becoming increasingly more complex, and with that comes the danger to your live services. Imagine a script that creates jobs in Jenkins which accidentally introduces an infinite loop. Expect your server to run out of memory very quickly! To ensure we don&#8217;t accidentally bring down a production service whilst testing its a good idea to build sacrificial services. In the past I would create Vagrant environments, but these boxes were heavyweight and slow&#8230;..</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this blog is to show you how you can provision an integrated CD environment using the power of Docker and Docker Compose.</p>
 </div>
 </div>
 </div></p>
@@ -78,9 +87,9 @@
 	<script type="text/javascript">
 		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 		var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
-		var disqus_identifier = '2015/06/devops-cut-then-measure.html';
-    	var disqus_title = "DevOps - Cut then measure";
-    	var disqus_url = 'https://willis7.github.io/blog2015/06/devops-cut-then-measure.html';
+		var disqus_identifier = '2015/07/cd-pipeline-docker-setup.html';
+    	var disqus_title = "CD test environments with Docker";
+    	var disqus_url = 'https://willis7.github.io/blog2015/07/cd-pipeline-docker-setup.html';
 
 		/* * * DON'T EDIT BELOW THIS LINE * * */
 		(function() {

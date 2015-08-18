@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>DevOps - Cut then measure</title>
+    <title>Staying Safe When Using Public Repositories</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -55,18 +55,62 @@
     <div class="container">
 
 	<div class="page-header">
-		<h1>DevOps - Cut then measure</h1>
+		<h1>Staying Safe When Using Public Repositories</h1>
 	</div>
 
-	<p><em>04 June 2015</em></p>
+	<p><em>18 August 2015</em></p>
 	<p><em>Tags: </em>
-		<a href="/blog/tags/devops.html">devops</a>
+		<a href="/blog/tags/nexus.html">nexus</a>
+	</em>
+		<a href="/blog/tags/artifactory.html"> artifactory</a>
+	</em>
+		<a href="/blog/tags/maven-central.html"> maven central</a>
+	</em>
+		<a href="/blog/tags/gradle.html"> gradle</a>
+	</em>
+		<a href="/blog/tags/maven.html"> maven</a>
 	</p>
 
-	<p><div id="preamble">
+	<p><div class="sect1">
+<h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since I was a young lad I&#8217;ve always had an interest in any form of DIY. My dad would let me play with the tools, and he would show me all the tips and tricks. One of the greatest pieces of advice he gave me was to measure twice, and cut once. I thought this was the best bit of advice I ever had until DevOps come along and turned that on its head.</p>
+<p>These days we take dependency management for granted. We simply specify the dependencies we want, and our build tool does the rest. I&#8217;m as guilty as the next person of not investing the authenticity of my dependencies so long as my code works. This naivety is riddled with risks to your business, or worse, anyone who chooses to use your code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_common_scenario">A Common Scenario</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;m developing a super awesome framework that I eventually want everyone to use. I add a few dependencies and my code works perfectly. I publish the binary on Maven Central and my code is downloaded 100million times in the first 10 minutes. Awesome!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_problem">The Problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This looks harmless on the face of it. I would say most people work in this way, right? As a simple exercise to demonstrate just how risky this is,  I want you to go to Maven Central and search for the most popular Java test framework <em>JUnit</em>. I just did it and got 399 entries returned. Which one do I chose? am I using the actual JUnit? The second problem is that adding a dependency tells us nothing about how much care those developers were taking from a security perspective. It could be riddled with security holes. Finally, and potentially the most dangerous&#8230; I don&#8217;t know what dependencies JUnit is also pulling in. These transitive dependencies could also be victims of all the above.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_solution">The Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check">Dependency Check</a> is a tool from the OWASP team to check the dependencies you are using for know risks. The core engine contains a series of analyzers that inspect the project dependencies, collect pieces of information about the dependencies (referred to as evidence within the tool). The evidence is then used to identify the Common Platform Enumeration (CPE) for the given dependency. If a CPE is identified, a listing of associated Common Vulnerability and Exposure (CVE) entries are listed in a report.</p>
+</div>
+<div class="paragraph">
+<p>Once you have this information available you can make a more informed decision about the dependencies you want to carry on using.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_shameless_plug">A Shameless Plug</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I was so impressed with this tool that I decided to work on the <a href="https://github.com/jeremylong/DependencyCheck">Dependency Check Gradle Plugin</a>. You can find this plugin in the Gradle Plugin portal, so feel free to give it a try and provide feedback.</p>
 </div>
 </div>
 </div></p>
@@ -78,9 +122,9 @@
 	<script type="text/javascript">
 		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 		var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
-		var disqus_identifier = '2015/06/devops-cut-then-measure.html';
-    	var disqus_title = "DevOps - Cut then measure";
-    	var disqus_url = 'https://willis7.github.io/blog2015/06/devops-cut-then-measure.html';
+		var disqus_identifier = '2015/08/public-repository-security.html';
+    	var disqus_title = "Staying Safe When Using Public Repositories";
+    	var disqus_url = 'https://willis7.github.io/blog2015/08/public-repository-security.html';
 
 		/* * * DON'T EDIT BELOW THIS LINE * * */
 		(function() {
