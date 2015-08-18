@@ -6,9 +6,60 @@
     <atom:link href="https://willis7.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 18 Aug 2015 19:02:35 +0100</pubDate>
-    <lastBuildDate>Tue, 18 Aug 2015 19:02:35 +0100</lastBuildDate>
+    <pubDate>Tue, 18 Aug 2015 19:04:30 +0100</pubDate>
+    <lastBuildDate>Tue, 18 Aug 2015 19:04:30 +0100</lastBuildDate>
 
+    <item>
+      <title>Staying Safe When Using Public Repositories</title>
+      <link>https://willis7.github.io/blog/2015/08/public-repository-security.html</link>
+      <pubDate>Tue, 18 Aug 2015 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">2015/08/public-repository-security.html</guid>
+      	<description>
+	&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;These days we take dependency management for granted. We simply specify the dependencies we want, and our build tool does the rest. I&amp;#8217;m as guilty as the next person of not investing the authenticity of my dependencies so long as my code works. This naivety is riddled with risks to your business, or worse, anyone who chooses to use your code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_a_common_scenario&quot;&gt;A Common Scenario&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;m developing a super awesome framework that I eventually want everyone to use. I add a few dependencies and my code works perfectly. I publish the binary on Maven Central and my code is downloaded 100million times in the first 10 minutes. Awesome!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_the_problem&quot;&gt;The Problem&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This looks harmless on the face of it. I would say most people work in this way, right? As a simple exercise to demonstrate just how risky this is,  I want you to go to Maven Central and search for the most popular Java test framework &lt;em&gt;JUnit&lt;/em&gt;. I just did it and got 399 entries returned. Which one do I chose? am I using the actual JUnit? The second problem is that adding a dependency tells us nothing about how much care those developers were taking from a security perspective. It could be riddled with security holes. Finally, and potentially the most dangerous&amp;#8230; I don&amp;#8217;t know what dependencies JUnit is also pulling in. These transitive dependencies could also be victims of all the above.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_the_solution&quot;&gt;The Solution&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.owasp.org/index.php/OWASP_Dependency_Check&quot;&gt;Dependency Check&lt;/a&gt; is a tool from the OWASP team to check the dependencies you are using for know risks. The core engine contains a series of analyzers that inspect the project dependencies, collect pieces of information about the dependencies (referred to as evidence within the tool). The evidence is then used to identify the Common Platform Enumeration (CPE) for the given dependency. If a CPE is identified, a listing of associated Common Vulnerability and Exposure (CVE) entries are listed in a report.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once you have this information available you can make a more informed decision about the dependencies you want to carry on using.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_a_shameless_plug&quot;&gt;A Shameless Plug&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I was so impressed with this tool that I decided to work on the &lt;a href=&quot;https://github.com/jeremylong/DependencyCheck&quot;&gt;Dependency Check Gradle Plugin&lt;/a&gt;. You can find this plugin in the Gradle Plugin portal, so feel free to give it a try and provide feedback.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Securing your browsing with Chrome, Tor and Docker</title>
       <link>https://willis7.github.io/blog/2015/06/tor-docker-chrome.html</link>
