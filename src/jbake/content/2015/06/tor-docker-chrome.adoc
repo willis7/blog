@@ -26,6 +26,8 @@ image:https://cdn.pbrd.co/images/1r6gA4dE.png["new profile", width=128, link="ht
 
 image:https://cdn.pbrd.co/images/1r6z4pM1.png["profile config", width=128, link="https://cdn.pbrd.co/images/1r6z4pM1.png"]
 
-* Step 5: Check its all working https://check.torproject.org/
+* Step 5: Switch the profile to Tor using the button on toolbar. Press the button and click "Tor" from the dropdown.
+
+* Step 6: Check its all working https://check.torproject.org/
 
 image:https://cdn.pbrd.co/images/1r75L8Yu.png["tor success", width=128, link="https://cdn.pbrd.co/images/1r75L8Yu.png"]

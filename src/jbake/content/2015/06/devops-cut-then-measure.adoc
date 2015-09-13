@@ -1,0 +1,8 @@
+= DevOps - Cut then measure
+Sion Williams
+2015-06-04
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: devops
+
+Since I was a young lad I've always had an interest in any form of DIY. My dad would let me play with the tools, and he would show me all the tips and tricks. One of the greatest pieces of advice he gave me was to measure twice, and cut once. I thought this was the best bit of advice I ever had until DevOps come along and turned that on its head.

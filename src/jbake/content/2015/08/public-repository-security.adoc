@@ -1,0 +1,28 @@
+= Staying Safe When Using Public Repositories
+Sion Williams
+2015-08-18
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: nexus, artifactory, maven central, gradle, maven
+
+== Introduction
+
+These days we take dependency management for granted. We simply specify the dependencies we want, and our build tool does the rest. I'm as guilty as the next person of not investing the authenticity of my dependencies so long as my code works. This naivety is riddled with risks to your business, or worse, anyone who chooses to use your code.
+
+== A Common Scenario
+
+I'm developing a super awesome framework that I eventually want everyone to use. I add a few dependencies and my code works perfectly. I publish the binary on Maven Central and my code is downloaded 100million times in the first 10 minutes. Awesome!
+
+== The Problem
+
+This looks harmless on the face of it. I would say most people work in this way, right? As a simple exercise to demonstrate just how risky this is,  I want you to go to Maven Central and search for the most popular Java test framework 'JUnit'. I just did it and got 399 entries returned. Which one do I chose? am I using the actual JUnit? The second problem is that adding a dependency tells us nothing about how much care those developers were taking from a security perspective. It could be riddled with security holes. Finally, and potentially the most dangerous... I don't know what dependencies JUnit is also pulling in. These transitive dependencies could also be victims of all the above.
+
+== The Solution
+
+https://www.owasp.org/index.php/OWASP_Dependency_Check[Dependency Check] is a tool from the OWASP team to check the dependencies you are using for know risks. The core engine contains a series of analyzers that inspect the project dependencies, collect pieces of information about the dependencies (referred to as evidence within the tool). The evidence is then used to identify the Common Platform Enumeration (CPE) for the given dependency. If a CPE is identified, a listing of associated Common Vulnerability and Exposure (CVE) entries are listed in a report.
+
+Once you have this information available you can make a more informed decision about the dependencies you want to carry on using.
+
+== A Shameless Plug
+
+I was so impressed with this tool that I decided to work on the https://github.com/jeremylong/DependencyCheck[Dependency Check Gradle Plugin]. You can find this plugin in the Gradle Plugin portal, so feel free to give it a try and provide feedback.

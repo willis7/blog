@@ -1,0 +1,77 @@
+= Building a CD pipeline with Jenkins
+Sion Williams
+2015-03-24
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: jenkins, continuous delivery, gradle, git
+
+== Introduction
+
+The purpose of this post is to create a robust continuous delivery pipeline which allows us to perform the following actions:
+
+* Build, Test and Deploy.
+* Rollback in the event of a failed deployment.
+* Support a hotfix style release.
+
+In pure Continuous Delivery we wouldn't typically support a hotfix route to production, but in reality we often find situations when features are in test longer than we anticipated, and so we need a new route to production. Ideally, we would simply develop a fix and push it into the pipeline for delivery to production.
+
+Throughout this post I will try to stay true to the concepts defined by Jez Humble in the fantastic book http://www.amazon.com/dp/0321601912?tag=contindelive-20[Continuous Delivery].
+
+The tools I will use are:
+
+* Java
+* Gradle
+* Git
+* Jenkins
+** Git Plugin
+** Artifact Publisher
+** Copy Artifact Plugin
+** Env Inject
+
+I'm going to assume you have some familiarity with Jenkins, and so I wont be discussing how to create a job and the more basic parts of Jenkins.
+
+== Commit Stage
+
+In this phase we need to validate our latest commit - it needs to be fast, lightweight and provide feedback within 10 minutes. Jez highlights that the Commit stage should have the following steps:
+
+* Compile the code (if necessary).
+* Run a set of commit tests.
+* Create binaries for use by later stages.
+* Perform analysis of the code to check its health.
+* Prepare artifacts, such as test databases, for use by later stages.
+
+=== Job 1 - Build & Test
+
+In this job we will perform a few actions:
+
+* Pull from Git.
+* Build & Test.
+* Archive the artifacts.
+
+==== How to do it..
+
+. From the Jenkins home screen, click *New Item* to create a new job.
+. Enter a Project Name. I like to use the gradle task name here +myProject_build+.
+. Select *Git* under *Source Code Management*. Provide your repo url, branch and then hit the *Add* button. Select *Clean after checkout* to ensure we have a clean repo every time.
+. For *Build Triggers* I used *Poll SCM*, but check out the improvement below for a better solution.
+. Under *Build Environment* check *Inject environment variables to the build process* and enter +SOURCE_BUILD_NUMBER=${BUILD_NUMBER}+ in the *Properties Content* text box.
+. *Add build step*, choose *Invoke Gradle script*. Select *Use Gradle Wrapper*, check *Make gradlew executable*, and enter +build+ in the *Tasks* box.
+. *Add post-build action* select *Archive the artifacts*. Your *Files to archive* may be different in the event of a multi-module build, but I use +/build/**/*+.
+. *Add post-build action* select *Trigger parameterized build on other projects*.
+. 
+
+==== How it works..
+
+This is our really simple fast build task. We simply check we can compile and run our unit tests. We produce some build artifacts and archive them for later use in the pipeline. We also pass through the git commit so we know we have the correct version of the build files to match the artifacts.
+
+==== Improvements:
+
+Ideally, we dont want to keep polling our repository for a change, we want to tell Jenkins when a change is made. Fortunately, Git allows us to do that using it's hooks mechanic.
+
+See http://kohsuke.org/2011/12/01/polling-must-die-triggering-jenkins-builds-from-a-git-hook/[Polling must die: triggering Jenkins builds from a git hook] by Kohsuke.
+
+=== Job 2 - Integration Test
+
+=== Job 3 - Analysis
+
+You may chose to do this in parallel

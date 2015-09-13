@@ -1,0 +1,10 @@
+= CD test environments with Docker
+Sion Williams
+2015-07-07
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: continuous-delivery, cd, automation, docker
+
+Automation code is becoming increasingly more complex, and with that comes the danger to your live services. Imagine a script that creates jobs in Jenkins which accidentally introduces an infinite loop. Expect your server to run out of memory very quickly! To ensure we don't accidentally bring down a production service whilst testing its a good idea to build sacrificial services. In the past I would create Vagrant environments, but these boxes were heavyweight and slow.....
+
+The purpose of this blog is to show you how you can provision an integrated CD environment using the power of Docker and Docker Compose.

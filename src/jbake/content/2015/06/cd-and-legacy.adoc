@@ -1,0 +1,14 @@
+= Continuous Delivery and legacy
+Sion Williams
+2015-06-04
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: devops, legacy, automation
+
+== Introduction
+
+Continuous Delivery is all over the IT news at the moment. With the DevOps movement gaining traction daily, there is even more emphasis on driving benefits to the customer faster. Whilst this is all really great, it has left me feeling sorry for all of the poor souls still supporting systems 25+ years old, with millions of lines of code and no unit tests. Dont laugh! it happens and I've seen it. The reality is, some of these technologies weren't built with automated delivery in mind. There are no test frameworks available, no build/deploy tools and people didn't blog or publicise gotchas like they do now. The JVM boys got it easy!
+
+== A New Hope
+
+I've had the privilage of working with many technologies in my relatively short career. C++, Java and even languages such as PLSQL. 
