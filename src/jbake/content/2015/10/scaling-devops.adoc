@@ -2,11 +2,10 @@
 Sion Williams
 2015-09-07
 :jbake-type: post
-:jbake-status: published
+:jbake-status: draft
 :jbake-tags: devops
 
 == Introduction
 Since beginning my career as a Build & Release engineer, I've had the pleasure of being part of many transformation journeys. I've worked with teams that have exceptional automation practices and processes in place, and ones that have not. What still amazes me to this day is how automation is still seen as a side of desk activity, with little-to-no budget being allocated. Whilst I could rant about how this is bad, and tell you, you will never reach the speed of delivery you desire without it. I would just be reciting a million other papers/blogs/podcasts on the same topic.
 
-== 
-
+==

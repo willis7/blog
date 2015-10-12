@@ -1,0 +1,30 @@
+= Use the right tools for the job
+Sion Williams
+2015-10-12
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: devops, tools
+
+== Lets discuss
+As the tools we use become increasingly more powerful and extendable, with it comes the temptation to over exploit their functionality. This isn't always a bad thing, but sometimes we get lured into using tools for purposes in which they were never intended. This can have adverse effects in the long term. Let's look at those in turn:
+
+* Vendor lock-in
+* Upgrade nightmares
+* Increased tool load
+
+As hard as we try, oftentimes we cant avoid having to use certain tools. Whether its because we don't have the time or skills to build our own; sometimes we just have to buy. My first suggestion is whenever you adopt a new tool you should always think about an exit strategy. I've seen companies stuck in bed with vendors who's license costs rise exponentially on an annual basis, and they find themselves debating whether they should use their £million maintenance money to move off a tool/platform. Mainframe anyone?? Don't let a tactical decision end up as your strategic solution!
+
+When you leverage a tool for functionality outside of the 'norm', you run the risk of those features being removed at any time. I once had a scenario where some colleagues had extended Jenkins to create a web form which would post rest calls to another back-end system. They did this through the use of a plugin that had a fairly small community for support. The problem here is when we needed to upgrade Jenkins to get the latest patch fix, this plugin was still lagging behind and had broken with the upgrade. In this instance a simple 'X on rails' framework would have done the job and broken any dependencies on Jenkins.
+
+Increasing tool load. Lets go back to the Jenkins example above. If we have thousands of people filling in this web form and submitting to backend systems, then we are placing additional load on Jenkins. Fact. Jenkins is a build system, and can often be fairly critical to delivery. If we're placing unplanned load on the service and bring it down, then we run the risk of hindering other users who may choose to use the tool also.
+
+== Simple rules
+
+=== Problem domains
+When deciding to use a tool for a certain problem, check to see if it belongs to that problem domain. For example Jira is a task management tool, and Confluence is a wiki used for knowledge share. So, why would you store documents in Jira? Equally, Jenkins is for building and deploying software, keep it inside that domain and you will make your life easier in the long run.
+
+=== Stay off the hype train
+We're all guilty of wanting to keep up with the unicorns and play with the latests tools, but lets face it, we don't have their budgets or resources. If we invest in a tool for a new project without experimenting first we could find ourself running out of time and unable to roll back. My advice is stick to what you know unless you have an understanding delivery manager.
+
+=== Engineer!
+Engineer: An engineer is a professional practitioner of engineering, concerned with applying scientific knowledge, mathematics, and ingenuity to develop solutions for technical, societal and commercial problems. Enough said!
