@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title><%if (content.title) {%>${content.title}<% } else { %>Willis7<% }%></title>
+    <title><#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>Willis7</#if></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="My tech blog and mumbles">
     <meta name="author" content="Sion Williams">
