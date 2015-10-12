@@ -4,9 +4,9 @@
     <meta charset="utf-8"/>
     <title>Willis7</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="keywords" content="">
+    <meta name="description" content="My tech blog and mumbles">
+    <meta name="author" content="Sion Williams">
+    <meta name="keywords" content="devops,automation,ci,cd,gradle,groovy">
     <meta name="generator" content="JBake">
 
     <!-- Le styles -->
@@ -57,6 +57,62 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="2015/10/use-the-right-tools.html"><h1>Use the right tools for the job</h1></a>
+  			<p>12 October 2015</p>
+  			<a href="2015/10/use-the-right-tools.html#disqus_thread  data-disqus-identifier="2015/10/use-the-right-tools.html"> 0 Comments </a>
+  			<p><div class="sect1">
+<h2 id="_lets_discuss">Lets discuss</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As the tools we use become increasingly more powerful and extendable, with it comes the temptation to over exploit their functionality. This isn&#8217;t always a bad thing, but sometimes we get lured into using tools for purposes in which they were never intended. This can have adverse effects in the long term. Let&#8217;s look at those in turn:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vendor lock-in</p>
+</li>
+<li>
+<p>Upgrade nightmares</p>
+</li>
+<li>
+<p>Increased tool load</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As hard as we try, oftentimes we cant avoid having to use certain tools. Whether its because we don&#8217;t have the time or skills to build our own; sometimes we just have to buy. My first suggestion is whenever you adopt a new tool you should always think about an exit strategy. I&#8217;ve seen companies stuck in bed with vendors who&#8217;s license costs rise exponentially on an annual basis, and they find themselves debating whether they should use their £million maintenance money to move off a tool/platform. Mainframe anyone?? Don&#8217;t let a tactical decision end up as your strategic solution!</p>
+</div>
+<div class="paragraph">
+<p>When you leverage a tool for functionality outside of the <em>norm</em>, you run the risk of those features being removed at any time. I once had a scenario where some colleagues had extended Jenkins to create a web form which would post rest calls to another back-end system. They did this through the use of a plugin that had a fairly small community for support. The problem here is when we needed to upgrade Jenkins to get the latest patch fix, this plugin was still lagging behind and had broken with the upgrade. In this instance a simple <em>X on rails</em> framework would have done the job and broken any dependencies on Jenkins.</p>
+</div>
+<div class="paragraph">
+<p>Increasing tool load. Lets go back to the Jenkins example above. If we have thousands of people filling in this web form and submitting to backend systems, then we are placing additional load on Jenkins. Fact. Jenkins is a build system, and can often be fairly critical to delivery. If we&#8217;re placing unplanned load on the service and bring it down, then we run the risk of hindering other users who may choose to use the tool also.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_simple_rules">Simple rules</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_problem_domains">Problem domains</h3>
+<div class="paragraph">
+<p>When deciding to use a tool for a certain problem, check to see if it belongs to that problem domain. For example Jira is a task management tool, and Confluence is a wiki used for knowledge share. So, why would you store documents in Jira? Equally, Jenkins is for building and deploying software, keep it inside that domain and you will make your life easier in the long run.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stay_off_the_hype_train">Stay off the hype train</h3>
+<div class="paragraph">
+<p>We&#8217;re all guilty of wanting to keep up with the unicorns and play with the latests tools, but lets face it, we don&#8217;t have their budgets or resources. If we invest in a tool for a new project without experimenting first we could find ourself running out of time and unable to roll back. My advice is stick to what you know unless you have an understanding delivery manager.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_engineer">Engineer!</h3>
+<div class="paragraph">
+<p>Engineer: An engineer is a professional practitioner of engineering, concerned with applying scientific knowledge, mathematics, and ingenuity to develop solutions for technical, societal and commercial problems. Enough said!</p>
+</div>
+</div>
+</div>
+</div></p>
   			<a href="2015/08/public-repository-security.html"><h1>Staying Safe When Using Public Repositories</h1></a>
   			<p>18 August 2015</p>
   			<a href="2015/08/public-repository-security.html#disqus_thread  data-disqus-identifier="2015/08/public-repository-security.html"> 0 Comments </a>

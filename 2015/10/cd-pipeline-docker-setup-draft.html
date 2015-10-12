@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Weekly Links Roundup</title>
+    <title>CD test environments with Docker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="My tech blog and mumbles">
     <meta name="author" content="Sion Williams">
@@ -55,54 +55,27 @@
     <div class="container">
 
 	<div class="page-header">
-		<h1>Weekly Links Roundup</h1>
+		<h1>CD test environments with Docker</h1>
 	</div>
 
-	<p><em>08 March 2015</em></p>
+	<p><em>07 July 2015</em></p>
 	<p><em>Tags: </em>
-		<a href="/blog/tags/vagrant.html">vagrant</a>
+		<a href="/blog/tags/continuous-delivery.html">continuous-delivery</a>
+	</em>
+		<a href="/blog/tags/cd.html"> cd</a>
+	</em>
+		<a href="/blog/tags/automation.html"> automation</a>
 	</em>
 		<a href="/blog/tags/docker.html"> docker</a>
-	</em>
-		<a href="/blog/tags/devops.html"> devops</a>
 	</p>
 
-	<p><div class="sect1">
-<h2 id="_vagrant">Vagrant</h2>
+	<p><div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://www.iheavy.com/2014/01/16/how-to-deploy-on-amazon-ec2-with-vagrant/">How to deploy on Amazon EC2 with Vagrant</a></p>
-</li>
-<li>
-<p><a href="http://www.devopsdiary.com/blog/2013/05/07/automated-deployment-of-aws-ec2-instances-with-vagrant-and-puppet/">Automated Deployment of AWS EC2 Instances With Vagrant and Puppet</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Automation code is becoming increasingly more complex, and with that comes the danger to your live services. Imagine a script that creates jobs in Jenkins which accidentally introduces an infinite loop. Expect your server to run out of memory very quickly! To ensure we don&#8217;t accidentally bring down a production service whilst testing its a good idea to build sacrificial services. In the past I would create Vagrant environments, but these boxes were heavyweight and slow&#8230;..</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_docker">Docker</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://phusion.github.io/baseimage-docker/">baseimage-docker</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_noteworthy">Noteworthy</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://www.devopsbookmarks.com/">devops bookmarks</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The purpose of this blog is to show you how you can provision an integrated CD environment using the power of Docker and Docker Compose.</p>
 </div>
 </div>
 </div></p>
@@ -114,9 +87,9 @@
 	<script type="text/javascript">
 		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 		var disqus_shortname = 'willis7'; // required: replace example with your forum shortname
-		var disqus_identifier = '2015/03/weekly-links-2015-03-08.html';
-    	var disqus_title = "Weekly Links Roundup";
-    	var disqus_url = 'https://willis7.github.io/blog2015/03/weekly-links-2015-03-08.html';
+		var disqus_identifier = '2015/10/cd-pipeline-docker-setup.html';
+    	var disqus_title = "CD test environments with Docker";
+    	var disqus_url = 'https://willis7.github.io/blog2015/10/cd-pipeline-docker-setup.html';
 
 		/* * * DON'T EDIT BELOW THIS LINE * * */
 		(function() {
