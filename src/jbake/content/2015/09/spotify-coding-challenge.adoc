@@ -1,0 +1,29 @@
+Implement a function that removes duplicates elements from a List.
+
+def input = []
+def output = []
+
+input.each { input ->
+        if(output.includes(input){
+            do nothing
+        } else {
+            output.add(input)
+        }
+}
+
+ Implement a function that returns the sum of every other int parameter, starting from the second
+
+def sumEveryOther(def input) {
+    def output
+    def skipFlag = true
+
+    input.each{
+        if(skipFlag) {
+            skipFlag = false
+        } else {
+            output + it
+            skipFlag = true
+        }
+    }
+    return output
+}

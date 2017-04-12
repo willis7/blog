@@ -1,0 +1,8 @@
+= The things I learnt doing DevOps on a massive scale
+Sion Williams
+2016-04-04
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: devops, legacy
+
+My foot is firmly in the "DevOps is a culture" camp. However, over the past 10 months my <> has been challenged. 

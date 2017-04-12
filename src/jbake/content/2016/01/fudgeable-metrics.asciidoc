@@ -1,0 +1,10 @@
+= Fudgeable vs Unfudgeable Metrics
+Sion Williams
+2016-01-19
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: metrics, devops
+
+I was recently chatting to a colleague (as you do), and we touched on the topic of fudgeable metrics. It stuck with me because after a little thought, I realised I have been working towards goals which are completely rubbish. Have you ever been asked to optimize by 30%? What does that mean? How do you measure that?
+
+It quickly became apparent to me that, these kinds of measures are unrealistic and completely fudgeable!
